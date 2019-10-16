@@ -57,7 +57,7 @@ $ rm -Rf /tmp/xvim && \
   git clone https://github.com/VundleVim/Vundle.vim.git ~/.config/nvim/bundle/Vundle.vim && \
   cp /tmp/xvim/vimrc.vim ~/.config/nvim/init.vim && \
   cp /tmp/xvim/gvimrc.vim ~/.config/nvim/ginit.vim && \
-  vim +PlugInstall +qall
+  nvim +PlugInstall +qall
 ```
 
 
