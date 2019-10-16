@@ -39,25 +39,19 @@ Installation of base configurations is quite simple:
 For vim:
 
 ```
-$ rm -Rf /tmp/xvim && \
+$ rm -Rf /tmp/xvimrc && \
   git clone git://github.com/valsorym/xvimrc /tmp/xvimrc && \
-  rm -Rf ~/.vim/bundle/Vundle.vim && \
-  git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim && \
-  cp /tmp/xvim/vimrc.vim ~/.vimrc && \
-  cp /tmp/xvim/gvimrc.vim ~/.gvimrc && \
-  vim +PlugInstall +qall
+  cd /tmp/xvimrc && \
+  sh vim.sh
 ```
 
 For neovim:
 
 ```
-$ rm -Rf /tmp/xvim && \
+$ rm -Rf /tmp/xvimrc && \
   git clone git://github.com/valsorym/xvimrc /tmp/xvimrc && \
-  rm -Rf ~/.config/nvim/bundle/Vundle.vim && \
-  git clone https://github.com/VundleVim/Vundle.vim.git ~/.config/nvim/bundle/Vundle.vim && \
-  cp /tmp/xvim/vimrc.vim ~/.config/nvim/init.vim && \
-  cp /tmp/xvim/gvimrc.vim ~/.config/nvim/ginit.vim && \
-  nvim +PlugInstall +qall
+  cd /tmp/xvimrc && \
+  sh nvim.sh
 ```
 
 
