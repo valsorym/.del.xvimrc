@@ -46,6 +46,8 @@ Plugin 'VundleVim/Vundle.vim'
 " PLUGIN LIST:
 Plugin 'valsorym/vim-tabs'
 Plugin 'valsorym/vim-clear'
+Plugin 'valsorym/vim-highlighting'
+Plugin 'valsorym/vim-colors'
 
 Plugin 'rainglow/vim'
 Plugin 'scrooloose/nerdtree'
@@ -118,8 +120,9 @@ endif
 " COLOR SCHEME
 " Editor color scheme.
 syntax on
-colorscheme absent-contrast
 set background=dark
+colorscheme geek_term " valsorym/vim-colors
+""" colorscheme absent-contrast " rainglow/vim
 
 "'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''"
 "'' EDITOR                                                                  ''"
@@ -231,8 +234,9 @@ autocmd FileType css setlocal shiftwidth=2 tabstop=2
 autocmd FileType typescript setlocal shiftwidth=2 tabstop=2
 autocmd FileType javascript setlocal shiftwidth=2 tabstop=2
 autocmd FileType python setlocal expandtab shiftwidth=4 softtabstop=4
-autocmd FileType make setlocal noexpandtab
 autocmd FileType sh setlocal shiftwidth=2 tabstop=2
+autocmd FileType make setlocal noexpandtab
+autocmd FileType go setlocal noexpandtab
 
 " TypeScript: see TYPESCRIPT PLUGIN section
 " autocmd BufNewFile,BufRead *.ts set filetype=typescript
@@ -443,11 +447,12 @@ let g:NERDTreeIgnore=[
     \ "^\\.del\\."
 \]
 
-" Open NERDTree on console vim startup.
-let g:nerdtree_tabs_open_on_console_startup=1
-
 " On startup, always focus file window after startup.
-let g:nerdtree_tabs_smart_startup_focus=2
+""" let g:nerdtree_tabs_smart_startup_focus=2
+
+" Open NERDTree on console vim startup.
+" Note: sometimes it shows an error in the console!!!
+let g:nerdtree_tabs_open_on_console_startup=1
 
 " Automatically find and select currently opened file in NERDTree.
 " Note: raise an exception if an empty buffer is opened!!!
@@ -457,14 +462,10 @@ let g:nerdtree_tabs_smart_startup_focus=2
 imap <C-b> <Esc>:Bookmark<Space>
 nmap <C-b> :Bookmark<Space>
 
-" Togle NERDTree.
-nmap <silent> <F9> <plug>NERDTreeTabsToggle<CR>
-
 " AUTOMATICALLY SYNC NERDTREE WITH OPENED FILE
 " NERDTreeIsOpen return true if NERDTree is opened.
 function! NERDTreeIsOpen()
   return exists("t:NERDTreeBufName") && (bufwinnr(t:NERDTreeBufName) != -1)
-
 endfunction
 
 " NERDTreeSync call the NERDTreeTabsFind method.
@@ -480,6 +481,25 @@ endfunction
 
 " Auto sync.
 autocmd BufEnter * call NERDTreeSync()
+
+" OPEN/CLOSE NERDTREE
+" NERDTreeSmartOpen smart open NERDTree.
+function! NERDTreeSmartOpen()
+    NERDTreeTabsToggle
+    "if NERDTreeIsOpen()
+    "    NERDTreeTabsToggle
+    "else
+    "    try
+    "        NERDTreeTabsFind
+    "    catch
+    "        NERDTreeTabsToggle
+    "    endtry
+    "endif
+endfunction
+
+" Togle NERDTree.
+"" nmap <silent> <F9> <plug>NERDTreeTabsToggle<CR>
+nmap <silent> <F9> :call NERDTreeSmartOpen()<CR>
 
 "'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''"
 "'' BUFEXPLORER                                                             ''"
@@ -541,8 +561,8 @@ let g:neocomplete#sources#syntax#min_keyword_length=3
 let g:neocomplete#sources#dictionary#dictionaries = {
       \ 'default' : '',
       \ 'vimshell' : $CACHE.'/vimshell/command-history',
-      \ 'python' : '~/.vim/dict/python.dict',
-      \ 'go' : '~/.vim/dict/go.dict',
+      \ 'python' : $BASE_DIR.'bundle/vim-neocomplete/dict/python.dict',
+      \ 'go' : $BASE_DIR.'bundle/vim-neocomplete/dict/go.dict',
       \ }
 
 " Completion.
@@ -623,6 +643,17 @@ let g:multi_cursor_quit_key='<Esc>'
 "'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''"
 " JSON for Vim.
 let g:vim_json_syntax_conceal = 0 " 0 - JSON highlighting in raw mode.
+
+
+"'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''"
+"'' TYPESCRIPT                                                              ''"
+"'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''"
+let g:typescript_compiler_binary = 'tsc'
+let g:typescript_compiler_options = ''
+autocmd BufNewFile,BufRead *.ts set filetype=typescript
+autocmd FileType typescript :set makeprg=tsc
+autocmd QuickFixCmdPost [^l]* nested cwindow
+autocmd QuickFixCmdPost    l* nested lwindow
 
 "'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''"
 "'' RESWAP                                                                  ''"

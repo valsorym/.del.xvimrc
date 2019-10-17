@@ -19,35 +19,45 @@
 "'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''"
 " ELEMENTS
 " Disable graphics menu bar, toolbar and right-hand scroll bar.
-set guioptions=m
-set guioptions=T
-set guioptions-=r
-set guioptions-=l
-set guioptions-=T
-GuiTabline 0
+if has('nvim')
+    GuiTabline 0
+else
+    set guioptions=m
+    set guioptions=T
+    set guioptions-=r
+    set guioptions-=l
+    set guioptions-=T
+endif
 
 " WINDOW
 " Window size.
-set lines=37 columns=126
-call GuiWindowMaximized(1)
+if has('nvim')
+    call GuiWindowMaximized(1)
+else
+    set lines=37 columns=126
+endif
 
 " FONT
 " Font style.
-if has("gui_running")
-    if has("gui_gtk2")
-        set guifont=Courier\ New\ 13
-    elseif has("gui_gtk3")
-        set guifont=Courier\ New\ 13
-    elseif has("gui_photon")
-        set guifont=Courier\ New:s13
-    elseif has("gui_kde")
-        set guifont=Courier\ New/13/-1/5/50/0/0/0/1/0
-    elseif has("x11")
-        set guifont=-*-Courier\ New-medium-r-normal-*-*-180-*-*-m-*-*
-    elseif has("gui_macvim")
-        set gfn=Courier\ New:h16
-    else
-        set guifont=Courier\ New:h13:cDEFAULT
+if has('nvim')
+    " pass
+else
+    if has("gui_running")
+        if has("gui_gtk2")
+            set guifont=Courier\ New\ 16
+        elseif has("gui_gtk3")
+            set guifont=Courier\ New\ 16
+        elseif has("gui_photon")
+            set guifont=Courier\ New:s16
+        elseif has("gui_kde")
+            set guifont=Courier\ New/16/-1/5/50/0/0/0/1/0
+        elseif has("x11")
+            set guifont=-*-Courier\ New-medium-r-normal-*-*-180-*-*-m-*-*
+        elseif has("gui_macvim")
+            set gfn=Courier\ New:h16
+        else
+            set guifont=Courier\ New:h16:cDEFAULT
+        endif
     endif
 endif
 
@@ -72,8 +82,9 @@ set laststatus=2
 " COLOR SCHEME
 " Highlight syntax and editor color scheme.
 syntax on
-colorscheme absent-contrast
 set background=dark
+colorscheme geek_gui " valsorym/vim-colors
+""" colorscheme absent-contrast " rainglow/vim
 
 
 "'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''"

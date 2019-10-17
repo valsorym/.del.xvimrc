@@ -8,21 +8,21 @@ cd $SCRIPT_DIR/../
 BASE_DIR=`pwd -P`
 
 # Copy the basic settings.
-mkdir -p $HOME/.vim/bundle
-cp -Rf $BASE_DIR/src/vimrc.vim $HOME/.vimrc
-cp -Rf $BASE_DIR/src/gvimrc.vim $HOME/.gvimrc
+mkdir -p $HOME/.config/nvim/bundle
+cp -Rf $BASE_DIR/vimrc/console.vim $HOME/.config/nvim/init.vim
+cp -Rf $BASE_DIR/vimrc/gui.vim $HOME/.config/nvim/ginit.vim
 
 # Scan ~/.vimrc and find all plugins that must be installed use vundle.
-PLUGINS=`cat $HOME/.vimrc | grep "Plugin '*'" | cut -d"'" -f2`
+PLUGINS=`cat $HOME/.config/nvim/init.vim | grep "Plugin '*'" | cut -d"'" -f2`
 for plugin in $PLUGINS
 do
     name=`echo $plugin | cut -d"/" -f2`
     echo "Processed: $name"
-    git clone https://github.com/${plugin} $HOME/.vim/bundle/$name
+    git clone https://github.com/${plugin} $HOME/.config/nvim/bundle/$name
 done
 
 # Install and setting plugins.
-vim +PluginUpdate +qall
+nvim +PluginUpdate +qall
 
 echo "Done!"
 exit 0

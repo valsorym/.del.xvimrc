@@ -42,7 +42,7 @@ For vim:
 $ rm -Rf /tmp/xvimrc && \
   git clone git://github.com/valsorym/xvimrc /tmp/xvimrc && \
   cd /tmp/xvimrc && \
-  sh vim.sh
+  make vim
 ```
 
 For neovim:
@@ -51,7 +51,7 @@ For neovim:
 $ rm -Rf /tmp/xvimrc && \
   git clone git://github.com/valsorym/xvimrc /tmp/xvimrc && \
   cd /tmp/xvimrc && \
-  sh nvim.sh
+  make nvim
 ```
 
 
