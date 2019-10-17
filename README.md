@@ -40,7 +40,7 @@ For vim:
 
 ```
 $ rm -Rf /tmp/xvimrc && \
-  git clone git://github.com/valsorym/xvimrc /tmp/xvimrc && \
+  git clone git@github.com:valsorym/xvimrc.git /tmp/xvimrc && \
   cd /tmp/xvimrc && \
   make vim
 ```
@@ -49,7 +49,7 @@ For neovim:
 
 ```
 $ rm -Rf /tmp/xvimrc && \
-  git clone git://github.com/valsorym/xvimrc /tmp/xvimrc && \
+  git clone git@github.com:valsorym/xvimrc.git /tmp/xvimrc && \
   cd /tmp/xvimrc && \
   make nvim
 ```
