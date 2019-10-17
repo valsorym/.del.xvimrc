@@ -1,6 +1,6 @@
 " NEO/VIM CONFIGURATIONS
 " Author:  valsorym <valsorym.e@gmail.com>
-" Updated: 2019-10-16
+" Copyleft: 2012-2019
 
 " For vim, save as: ~/.vimrc
 " For neovim, save as: ~/.config/nvim/init.vim

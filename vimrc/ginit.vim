@@ -1,6 +1,6 @@
 " NEO/VIM CONFIGURATIONS
 " Author:  valsorym <valsorym.e@gmail.com>
-" Updated: 2019-10-16
+" Copyleft: 2012-2019
 
 " For vim, save as: ~/.gvimrc
 " For neovim, save as: ~/.config/nvim/ginit.vim
@@ -85,7 +85,6 @@ syntax on
 set background=dark
 colorscheme geek_gui " valsorym/vim-colors
 """ colorscheme absent-contrast " rainglow/vim
-
 
 "'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''"
 "'' KEY MAPPING                                                             ''"
