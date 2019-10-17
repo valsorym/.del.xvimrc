@@ -9,10 +9,11 @@ BASE_DIR=`pwd -P`
 
 # Copy the basic settings.
 mkdir -p $HOME/.config/nvim/bundle
-cp -Rf $BASE_DIR/vimrc/console.vim $HOME/.config/nvim/init.vim
-cp -Rf $BASE_DIR/vimrc/gui.vim $HOME/.config/nvim/ginit.vim
+cp -Rf $BASE_DIR/vimrc/init.vim $HOME/.config/nvim/init.vim
+cp -Rf $BASE_DIR/vimrc/ginit.vim $HOME/.config/nvim/ginit.vim
 
-# Scan ~/.vimrc and find all plugins that must be installed use vundle.
+# Scan ~/.config/nvim/init.vim and find all plugins that must
+# be installed use vundle.
 PLUGINS=`cat $HOME/.config/nvim/init.vim | grep "Plugin '*'" | cut -d"'" -f2`
 for plugin in $PLUGINS
 do

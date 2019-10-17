@@ -9,8 +9,8 @@ BASE_DIR=`pwd -P`
 
 # Copy the basic settings.
 mkdir -p $HOME/.vim/bundle
-cp -Rf $BASE_DIR/vimrc/console.vim $HOME/.vimrc
-cp -Rf $BASE_DIR/vimrc/gui.vim $HOME/.gvimrc
+cp -Rf $BASE_DIR/vimrc/init.vim $HOME/.vimrc
+cp -Rf $BASE_DIR/vimrc/ginit.vim $HOME/.gvimrc
 
 # Scan ~/.vimrc and find all plugins that must be installed use vundle.
 PLUGINS=`cat $HOME/.vimrc | grep "Plugin '*'" | cut -d"'" -f2`
