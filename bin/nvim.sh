@@ -8,6 +8,9 @@ cd $SCRIPT_DIR/../
 BASE_DIR=`pwd -P`
 
 # Copy the basic settings.
+rm -Rf $HOME/.config/nvim/bundle \
+       $HOME/.config/nvim/init.vim \
+       $HOME/.config/nvim/ginit.vim
 mkdir -p $HOME/.config/nvim/bundle
 cp -Rf $BASE_DIR/vimrc/init.vim $HOME/.config/nvim/init.vim
 cp -Rf $BASE_DIR/vimrc/ginit.vim $HOME/.config/nvim/ginit.vim

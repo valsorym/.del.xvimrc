@@ -40,23 +40,23 @@ endif
 " FONT
 " Font style.
 if has('nvim')
-    " pass
+    Guifont Courier New:h13
 else
     if has("gui_running")
         if has("gui_gtk2")
-            set guifont=Courier\ New\ 16
+            set guifont=Courier\ New\ 13
         elseif has("gui_gtk3")
-            set guifont=Courier\ New\ 16
+            set guifont=Courier\ New\ 13
         elseif has("gui_photon")
-            set guifont=Courier\ New:s16
+            set guifont=Courier\ New:s13
         elseif has("gui_kde")
-            set guifont=Courier\ New/16/-1/5/50/0/0/0/1/0
+            set guifont=Courier\ New/13/-1/5/50/0/0/0/1/0
         elseif has("x11")
             set guifont=-*-Courier\ New-medium-r-normal-*-*-180-*-*-m-*-*
         elseif has("gui_macvim")
-            set gfn=Courier\ New:h16
+            set gfn=Courier\ New:h13
         else
-            set guifont=Courier\ New:h16:cDEFAULT
+            set guifont=Courier\ New:h13:cDEFAULT
         endif
     endif
 endif
