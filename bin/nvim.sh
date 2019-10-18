@@ -27,6 +27,7 @@ done
 
 # Install and setting plugins.
 nvim +PluginUpdate +qall
+nvim +GoInstallBinaries +qall
 
 echo "Done!"
 exit 0

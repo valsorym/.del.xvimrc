@@ -60,6 +60,8 @@ Plugin 'matze/vim-move'
 Plugin 'elzr/vim-json'
 Plugin 'terryma/vim-multiple-cursors'
 
+Plugin 'fatih/vim-go'
+
 call vundle#end()
 filetype plugin indent on
 
@@ -654,6 +656,40 @@ autocmd BufNewFile,BufRead *.ts set filetype=typescript
 autocmd FileType typescript :set makeprg=tsc
 autocmd QuickFixCmdPost [^l]* nested cwindow
 autocmd QuickFixCmdPost    l* nested lwindow
+
+"'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''"
+"'' GOLANG                                                                  ''"
+"'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''"
+" GoLang development plugin for Vim.
+" USAGE: (only for .go files)
+"     Ctrl+f - run go fmt.
+" DOC:
+"     https://github.com/fatih/vim-go
+let g:go_fmt_command="goimports"
+let g:go_fmt_fail_silently=1
+let g:go_fmt_autosave=1 " automatic formatting when saving
+
+"let g:go_list_type="quickfix"
+"let g:go_autodetect_gopath=1
+"let g:go_highlight_types=1
+"let g:go_highlight_fields=1
+"let g:go_highlight_functions=1
+"let g:go_highlight_extra_types=1
+"let g:go_highlight_generate_tags=1
+"let g:go_highlight_function_calls=1
+"let g:go_gocode_unimported_packages = 1
+"let g:go_doc_keywordprg_enabled = 0
+"
+augroup go
+    autocmd!
+    " Customization .go files: show by default 4 spaces for a tab.
+    autocmd BufNewFile,BufRead *.go setlocal noexpandtab tabstop=4 shiftwidth=4
+
+    " Key mapping.
+    " Run GoFmt.
+    autocmd FileType go nmap <C-f> <Esc>:GoFmt<CR>
+    autocmd FileType go nmap <C-r> <Esc>:GoErrCheck<CR>
+augroup END
 
 "'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''"
 "'' RESWAP                                                                  ''"

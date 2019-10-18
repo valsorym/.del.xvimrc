@@ -26,6 +26,7 @@ done
 
 # Install and setting plugins.
 vim +PluginUpdate +qall
+vim +GoInstallBinaries +qall
 
 echo "Done!"
 exit 0
