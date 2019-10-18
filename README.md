@@ -1,7 +1,7 @@
 NEO/VIM CONFIGS
 ===============
 
-It's NEO/VIM configurations files for developers comfortable work: Shell, Bash, C, C++, Python (Django, Tornado template syntaxs), CSS/SCSS, HTML, JavaScript (JSON syntax), TypeScript.
+It's NEO/VIM configurations files for developers comfortable work: Shell, Bash, C, C++, GoLang, Python (Django, Tornado template syntaxs), CSS/SCSS, HTML, JavaScript (JSON syntax), TypeScript.
 
 
 Required
@@ -28,6 +28,7 @@ Configurations include the installation of the following packages:
 - [matze/vim-move](https://github.com/matze/vim-move) - plugin allows you to move the text up/down without the need to cut/paste;
 - [terryma/vim-multiple-cursors](https://github.com/terryma/vim-multiple-cursors) - plugin allows you to set several simultaneous cursor for text editing;
 - [majutsushi/tagbar](https://github.com/majutsushi/tagbar) - plugin that provides an easy way to browse the tags of the current file and get an overview of its structure;
+- [fatih/vim-go](https://github.com/fatih/vim-go) - Go development plugin for Vim.
 
 
 Quick Start
