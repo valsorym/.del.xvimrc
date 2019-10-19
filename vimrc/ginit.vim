@@ -17,7 +17,14 @@
 "'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''"
 "'' BASE SETTINGS                                                           ''"
 "'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''"
-" ELEMENTS
+" AUTORELOAD
+" Update buffer if file has been modified externally.
+if has('nvim')
+    set autoread
+    au FocusGained * :checktime
+endif
+
+" GUI ELEMENTS
 " Disable graphics menu bar, toolbar and right-hand scroll bar.
 if has('nvim')
     GuiTabline 0
