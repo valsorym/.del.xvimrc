@@ -688,7 +688,6 @@ augroup go
     " Key mapping.
     " Run GoFmt.
     autocmd FileType go nmap <C-f> <Esc>:GoFmt<CR>
-    autocmd FileType go nmap <C-r> <Esc>:GoErrCheck<CR>
 augroup END
 
 "'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''"
