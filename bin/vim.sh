@@ -30,7 +30,7 @@ rm -Rf /tmp/editor-code-fonts/ && \
 git clone https://github.com/valsorym/editor-code-fonts \
   /tmp/editor-code-fonts && \
 cd /tmp/editor-code-fonts/fonts/ && \
-cp ./* ~/.local/share/
+cp ./* ~/.local/share/fonts/
 
 # Install and setting plugins.
 vim +PluginUpdate +qall
