@@ -25,6 +25,14 @@ do
     git clone https://github.com/${plugin} $HOME/.config/nvim/bundle/$name
 done
 
+# Install fonts.
+mkdir -p ~/.local/share/fonts && \
+rm -Rf /tmp/editor-code-fonts/ && \
+git clone https://github.com/valsorym/editor-code-fonts \
+  /tmp/editor-code-fonts && \
+cd /tmp/editor-code-fonts/fonts/ && \
+cp ./* ~/.local/share/
+
 # Install and setting plugins.
 nvim +PluginUpdate +qall
 nvim +GoInstallBinaries +qall

@@ -47,7 +47,7 @@ Plugin 'VundleVim/Vundle.vim'
 Plugin 'valsorym/vim-tabs'
 Plugin 'valsorym/vim-clear'
 Plugin 'valsorym/vim-highlighting'
-Plugin 'valsorym/vim-colors'
+Plugin 'valsorym/vim-code-theme'
 
 Plugin 'rainglow/vim'
 Plugin 'scrooloose/nerdtree'
@@ -123,7 +123,7 @@ endif
 " Editor color scheme.
 syntax on
 set background=dark
-colorscheme geek_term " valsorym/vim-colors
+colorscheme 'code-theme-term'
 """ colorscheme absent-contrast " rainglow/vim
 
 "'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''"

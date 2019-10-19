@@ -40,7 +40,7 @@ endif
 " FONT
 " Font style.
 if has('nvim')
-    Guifont Courier New:h13
+    call GuiFont("Courier New:h13")
 else
     if has("gui_running")
         if has("gui_gtk2")
@@ -83,7 +83,7 @@ set laststatus=2
 " Highlight syntax and editor color scheme.
 syntax on
 set background=dark
-colorscheme geek_gui " valsorym/vim-colors
+colorscheme 'code-theme-gui'
 """ colorscheme absent-contrast " rainglow/vim
 
 "'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''"
