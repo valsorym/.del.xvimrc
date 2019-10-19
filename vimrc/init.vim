@@ -123,7 +123,7 @@ endif
 " Editor color scheme.
 syntax on
 set background=dark
-colorscheme 'code-theme-term'
+colorscheme code-theme-term
 """ colorscheme absent-contrast " rainglow/vim
 
 "'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''"

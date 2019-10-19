@@ -83,7 +83,7 @@ set laststatus=2
 " Highlight syntax and editor color scheme.
 syntax on
 set background=dark
-colorscheme 'code-theme-gui'
+colorscheme code-theme-gui
 """ colorscheme absent-contrast " rainglow/vim
 
 "'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''"
