@@ -349,6 +349,10 @@ nmap <F7> :tabnew<CR>
 imap <C-n> <Esc>:tabnew<CR>
 nmap <C-n> :tabnew<CR>
 
+" VISUAL SELECT ALL
+" USAGE: Ctrl+a
+map <C-a> <Esc>ggVG<CR>
+
 " MOVE TAB TO LEFT
 " USAGE: Ctrl+J
 imap <C-j> <Esc>:call MoveTabLeft()<CR>
