@@ -124,6 +124,7 @@ P.p.s. The other buttons correspond to the parameters by default.
 
 ## Copy & Paste system's clipboard.
 
+- `C-a` - select all (visula mode);
 - `C-Ins` - copy text selected in visual mode (only in `gvim` or `vim-gtk`);
 - `C-c`  - copy text selected in visual mode;
 - `S-Ins` - paste;
