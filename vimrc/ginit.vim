@@ -39,9 +39,13 @@ endif
 " WINDOW
 " Window size.
 if has('nvim')
+    " Editor NeoVIM-QT.
     call GuiWindowMaximized(1)
+elseif has("gui_running")
+    " Editor gVIM.
+    set lines=100 columns=250
 else
-    set lines=37 columns=126
+    " Unknown editor.
 endif
 
 " FONT
