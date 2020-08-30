@@ -155,7 +155,7 @@ P.P.s. Install the `vim-gtk` package, and use `select-editor` to select the `vim
 
 ## Vim folding commands.
 
-- `zf#j creates a fold from the cursor down # lines;
+- `zf#j` - creates a fold from the cursor down # lines, for example `zf3j` - hide 3 lines;
 - `zf/` - string creates a fold from the cursor to string;
 - `zj` - moves the cursor to the next fold;
 - `zk` - moves the cursor to the previous fold;
