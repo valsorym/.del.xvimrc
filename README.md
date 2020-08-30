@@ -132,7 +132,8 @@ P.p.s. The other buttons correspond to the parameters by default.
 - `C-v`, `v` or `S-v` + `C-Ins` - copy text to an external clipboard;
 - `S-a`, `i`, `S-r` or `r` + `S-Ins` - paste from an external clipboard.
 
-P.s. Install the `vim-gtk` package, and use `select-editor` to select the `vim-gtk` by default.
+P.s. Paste into **menu bar**: open menu `S-:` and paste data from the clipboard `C-r`, `S-+`. 
+P.P.s. Install the `vim-gtk` package, and use `select-editor` to select the `vim-gtk` by default.
 
 ## Flexible editing.
 
