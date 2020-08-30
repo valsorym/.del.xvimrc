@@ -28,7 +28,9 @@ Configurations include the installation of the following packages:
 - [matze/vim-move](https://github.com/matze/vim-move) - plugin allows you to move the text up/down without the need to cut/paste;
 - [terryma/vim-multiple-cursors](https://github.com/terryma/vim-multiple-cursors) - plugin allows you to set several simultaneous cursor for text editing;
 - [majutsushi/tagbar](https://github.com/majutsushi/tagbar) - plugin that provides an easy way to browse the tags of the current file and get an overview of its structure;
-- [fatih/vim-go](https://github.com/fatih/vim-go) - Go development plugin for Vim (after complete the instructions from the official documentation run `go get golang.org/x/tools/gopls`).
+- [fatih/vim-go](https://github.com/fatih/vim-go) - the GoLang development plugin for Vim (after complete the instructions from the official documentation run `go get golang.org/x/tools/gopls`);
+- [vim-scripts/grep.vim](https://github.com/vim-scripts/grep.vim) - integrates the grep, fgrep, egrep, and agrep tools with
+Vim.
 
 
 Quick Start
