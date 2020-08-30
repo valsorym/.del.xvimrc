@@ -28,7 +28,7 @@ Configurations include the installation of the following packages:
 - [matze/vim-move](https://github.com/matze/vim-move) - plugin allows you to move the text up/down without the need to cut/paste;
 - [terryma/vim-multiple-cursors](https://github.com/terryma/vim-multiple-cursors) - plugin allows you to set several simultaneous cursor for text editing;
 - [majutsushi/tagbar](https://github.com/majutsushi/tagbar) - plugin that provides an easy way to browse the tags of the current file and get an overview of its structure;
-- [fatih/vim-go](https://github.com/fatih/vim-go) - Go development plugin for Vim.
+- [fatih/vim-go](https://github.com/fatih/vim-go) - Go development plugin for Vim (after complete the instructions from the official documentation run `go get golang.org/x/tools/gopls`).
 
 
 Quick Start
@@ -106,6 +106,7 @@ Keyboard Shortcuts
 - `Leader`,`x` - remove trailing blanks;
 
 P.s. The leader button set as `.` (dot).
+
 P.p.s. The other buttons correspond to the parameters by default.
 
 ## Tabs.
@@ -133,6 +134,7 @@ P.p.s. The other buttons correspond to the parameters by default.
 - `S-a`, `i`, `S-r` or `r` + `S-Ins` - paste from an external clipboard.
 
 P.s. Paste into **menu bar**: open menu `S-:` and paste data from the clipboard `C-r`, `S-+`. 
+
 P.P.s. Install the `vim-gtk` package, and use `select-editor` to select the `vim-gtk` by default.
 
 ## Flexible editing.
