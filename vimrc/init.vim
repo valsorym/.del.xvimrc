@@ -61,7 +61,7 @@ Plugin 'elzr/vim-json'
 Plugin 'terryma/vim-multiple-cursors'
 
 Plugin 'fatih/vim-go'
-"Plugin 'vim-scripts/grep.vim'
+Plugin 'vim-scripts/grep.vim'
 
 call vundle#end()
 filetype plugin indent on
