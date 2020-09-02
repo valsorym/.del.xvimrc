@@ -164,7 +164,7 @@ set numberwidth=5
 " TITLE SETTINGS
 " Custom title style.
 set title
-set titlestring=vim:\ %-25.55F titlelen=70
+set titlestring=VIM:\ %-25.55F titlelen=70
 
 " STATUSBAR SETTINGS
 " Show pressed keys in normal mode.
@@ -490,8 +490,10 @@ function! NERDTreeSync()
             " Update window's title.
             " Add information about current project name.
             let t:root = g:NERDTree.ForCurrentTab().getRoot().path.str()
-            let s:root = fnamemodify(t:root, ':t') 
-            exec "set titlestring=". s:root ."\\ :\\ %-25.55F titlelen=79"
+            let s:root = fnamemodify(t:root, ':t')
+            let a:root = substitute(expand("%"), t:root . "/" , "", "")
+            "exec "set titlestring=". s:root .":\\ %-25.55F titlelen=79"
+            exec "set titlestring=". toupper(s:root) .":\\ \\ \\ ./". a:root ." titlelen=79"
         catch
         endtry
     endif
