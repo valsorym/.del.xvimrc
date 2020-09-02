@@ -1,6 +1,6 @@
 " NEO/VIM CONFIGURATIONS
 " Author:  valsorym <valsorym.e@gmail.com>
-" Copyleft: 2012-2019
+" Copyleft: 2012-2020
 
 " For vim, save as: ~/.vimrc
 " For neovim, save as: ~/.config/nvim/init.vim
@@ -160,6 +160,11 @@ set completeopt-=preview
 " Show line numbers in the file.
 set number
 set numberwidth=5
+
+" TITLE SETTINGS
+" Custom title style.
+set title
+set titlestring=vim:\ %-25.55F titlelen=70
 
 " STATUSBAR SETTINGS
 " Show pressed keys in normal mode.
@@ -481,6 +486,12 @@ function! NERDTreeSync()
         try
             NERDTreeTabsFind
             wincmd p
+
+            " Update window's title.
+            " Add information about current project name.
+            let t:root = g:NERDTree.ForCurrentTab().getRoot().path.str()
+            let s:root = fnamemodify(t:root, ':t') 
+            exec "set titlestring=". s:root ."\\ :\\ %-25.55F titlelen=79"
         catch
         endtry
     endif
