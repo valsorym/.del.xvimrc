@@ -60,6 +60,7 @@ Plugin 'matze/vim-move'
 Plugin 'elzr/vim-json'
 Plugin 'terryma/vim-multiple-cursors'
 
+Plugin 'posva/vim-vue'
 Plugin 'fatih/vim-go'
 Plugin 'vim-scripts/grep.vim'
 
