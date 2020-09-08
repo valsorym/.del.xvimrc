@@ -246,6 +246,7 @@ autocmd FileType python setlocal expandtab shiftwidth=4 softtabstop=4
 autocmd FileType sh setlocal shiftwidth=2 tabstop=2
 autocmd FileType make setlocal noexpandtab
 autocmd FileType go setlocal noexpandtab
+autocmd FileType vue setlocal shiftwidth=2 tabstop=2
 
 " TypeScript: see TYPESCRIPT PLUGIN section
 " autocmd BufNewFile,BufRead *.ts set filetype=typescript
