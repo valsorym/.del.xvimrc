@@ -54,7 +54,16 @@ Plugin 'scrooloose/nerdtree'
 Plugin 'jistr/vim-nerdtree-tabs'
 Plugin 'jlanzarotta/bufexplorer'
 
-Plugin 'Shougo/neocomplete.vim'
+"Plugin 'Shougo/neocomplete.vim' " Vim
+"Plugin 'Shougo/deoplete.nvim' " Neovim and Vim 8
+if has('nvim')
+  Plugin 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+else
+  Plugin 'Shougo/deoplete.nvim'
+  Plugin 'roxma/nvim-yarp'
+  Plugin 'roxma/vim-hug-neovim-rpc'
+endif
+
 Plugin 'chrisbra/Colorizer'
 Plugin 'matze/vim-move'
 Plugin 'elzr/vim-json'
@@ -572,41 +581,50 @@ nmap <C-t> :call OpenBufExplorer()<CR>
 "    Use neocomplete;
 "    Use smartcase;
 "    Set minimum syntax keyword length.
-let g:acp_enableAtStartup=0
-let g:neocomplete#enable_at_startup=1
-let g:neocomplete#enable_smart_case=1
-let g:neocomplete#force_overwrite_completefunc=1
-let g:neocomplete#auto_completion_start_length=3
-let g:neocomplete#sources#syntax#min_keyword_length=3
+""" let g:acp_enableAtStartup=0
+""" let g:neocomplete#enable_at_startup=1
+""" let g:neocomplete#enable_smart_case=1
+""" let g:neocomplete#force_overwrite_completefunc=1
+""" let g:neocomplete#auto_completion_start_length=3
+""" let g:neocomplete#sources#syntax#min_keyword_length=3
+"""
+""" """ Define dictionary.
+""" let g:neocomplete#sources#dictionary#dictionaries = {
+"""       \ 'default' : '',
+"""       \ 'vimshell' : $CACHE.'/vimshell/command-history',
+"""       \ 'python' : $BASE_DIR.'bundle/vim-neocomplete/dict/python.dict',
+"""       \ 'go' : $BASE_DIR.'bundle/vim-neocomplete/dict/go.dict',
+"""       \ }
+"""
+""" " Completion.
+""" " Close popup and save indent use TAB ro CR.
+""" inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
+""" inoremap <silent> <CR> <C-r>=<SID>neocomplete_cr_function()<CR>
+""" function! s:neocomplete_cr_function()
+"""     return pumvisible() ? "\<C-y>" : "\<CR>"
+""" endfunction
+"""
+""" " Enable omni completion.
+""" autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
+""" autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
+""" autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
+""" autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
+""" autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
+""" autocmd FileType go setlocal omnifunc=gocomplete#Complete
+"""
+""" if !exists('g:neocomplete#force_omni_input_patterns')
+"""     let g:neocomplete#force_omni_input_patterns = {}
+""" endif
+""" let g:neocomplete#force_omni_input_patterns.go = '[^.[:digit:] *\t]\.'
 
-""" Define dictionary.
-let g:neocomplete#sources#dictionary#dictionaries = {
-      \ 'default' : '',
-      \ 'vimshell' : $CACHE.'/vimshell/command-history',
-      \ 'python' : $BASE_DIR.'bundle/vim-neocomplete/dict/python.dict',
-      \ 'go' : $BASE_DIR.'bundle/vim-neocomplete/dict/go.dict',
-      \ }
-
-" Completion.
-" Close popup and save indent use TAB ro CR.
-inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
-inoremap <silent> <CR> <C-r>=<SID>neocomplete_cr_function()<CR>
-function! s:neocomplete_cr_function()
-    return pumvisible() ? "\<C-y>" : "\<CR>"
-endfunction
-
-" Enable omni completion.
-autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
-autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
-autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
-autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
-autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
-autocmd FileType go setlocal omnifunc=gocomplete#Complete
-
-if !exists('g:neocomplete#force_omni_input_patterns')
-    let g:neocomplete#force_omni_input_patterns = {}
-endif
-let g:neocomplete#force_omni_input_patterns.go = '[^.[:digit:] *\t]\.'
+"'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''"
+"'' DEOPLETE                                                                ''"
+"'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''"
+" It provides an extensible and asynchronous completion framework for
+" neovim/Vim8. Next generation completion framework after neocomplcache.
+" DOC:
+"     https://github.com/Shougo/deoplete.nvim
+let g:deoplete#enable_at_startup = 1
 
 "'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''"
 "'' COLORIZER                                                               ''"

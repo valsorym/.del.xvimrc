@@ -33,6 +33,7 @@ cd /tmp/editor-code-fonts/fonts/ && \
 cp ./* ~/.local/share/fonts/
 
 # Install and setting plugins.
+pip3 install --user --upgrade pynvim
 vim +PluginUpdate +qall
 vim +GoInstallBinaries +qall
 
