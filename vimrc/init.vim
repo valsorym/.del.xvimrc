@@ -631,15 +631,15 @@ let g:multi_cursor_skip_key='<S-x>'
 let g:multi_cursor_quit_key='<Esc>'
 
 " Fix bug with deoplete: https://github.com/Shougo/deoplete.nvim/issues/265
-function Multiple_cursors_before()
+function g:Multiple_cursors_before()
     if has('nvim') || has("gui_running")
-        let g:deoplete#disable_auto_complete = 1
+        call deoplete#custom#buffer_option('auto_complete', v:false)
     endif
 endfunction
 
-function Multiple_cursors_after()
+function g:Multiple_cursors_after()
     if has('nvim') || has("gui_running")
-        let g:deoplete#disable_auto_complete = 0
+        call deoplete#custom#buffer_option('auto_complete', v:true)
     endif
 endfunction
 
