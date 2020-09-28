@@ -216,7 +216,6 @@ set autoindent
 "  Display wildcards: tabs and spaces at the end.
 set list listchars=tab:»·,trail:·
 
-
 "'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''"
 "'' FILE ASSOCIATION                                                        ''"
 "'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''"
@@ -576,7 +575,11 @@ nmap <C-t> :call OpenBufExplorer()<CR>
 " neovim/Vim8. Next generation completion framework after neocomplcache.
 " DOC:
 "     https://github.com/Shougo/deoplete.nvim
-let g:deoplete#enable_at_startup = 1
+if has('nvim')
+    let g:deoplete#enable_at_startup = 1
+elseif has("gui_running")
+    let g:deoplete#enable_at_startup = 1
+endif
 
 "'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''"
 "'' COLORIZER                                                               ''"
