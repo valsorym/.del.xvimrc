@@ -575,9 +575,7 @@ nmap <C-t> :call OpenBufExplorer()<CR>
 " neovim/Vim8. Next generation completion framework after neocomplcache.
 " DOC:
 "     https://github.com/Shougo/deoplete.nvim
-if has('nvim')
-    let g:deoplete#enable_at_startup = 1
-elseif has("gui_running")
+if has('nvim') || has("gui_running")
     let g:deoplete#enable_at_startup = 1
 endif
 
@@ -631,6 +629,19 @@ let g:multi_cursor_next_key='<S-f>'
 let g:multi_cursor_prev_key='<S-b>'
 let g:multi_cursor_skip_key='<S-x>'
 let g:multi_cursor_quit_key='<Esc>'
+
+" Fix bug with deoplete: https://github.com/Shougo/deoplete.nvim/issues/265
+function Multiple_cursors_before()
+    if has('nvim') || has("gui_running")
+        let g:deoplete#disable_auto_complete = 1
+    endif
+endfunction
+
+function Multiple_cursors_after()
+    if has('nvim') || has("gui_running")
+        let g:deoplete#disable_auto_complete = 0
+    endif
+endfunction
 
 "'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''"
 "'' JSON                                                                    ''"
