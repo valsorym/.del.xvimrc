@@ -261,6 +261,11 @@ autocmd FileType vue setlocal shiftwidth=2 tabstop=2
 " important when searching in large files.
 autocmd BufEnter * :syntax sync fromstart
 
+" Old version NeoVim and Vim.
+if has('nvim')
+    let g:go_version_warning = 0
+endif
+
 
 "'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''"
 "'' GLOBAL KEY MAPPING                                                      ''"
