@@ -232,6 +232,9 @@ autocmd BufNewFile,BufRead *.go set filetype=go
 autocmd BufNewFile,BufRead *.jinja set filetype=jinja
 autocmd BufNewFile,BufRead *.json set filetype=json
 autocmd BufNewFile,BufRead *.template set filetype=txt
+autocmd BufNewFile,BufRead *.gql set filetype=graphql
+autocmd BufNewFile,BufRead *.graphql set filetype=graphql
+autocmd BufNewFile,BufRead *.proto set filetype=proto
 
 " ... for typescript and html/css files set 2 spaces.
 autocmd FileType json setlocal shiftwidth=2 tabstop=2
@@ -249,6 +252,9 @@ autocmd FileType sh setlocal shiftwidth=2 tabstop=2
 autocmd FileType make setlocal noexpandtab
 autocmd FileType go setlocal noexpandtab
 autocmd FileType vue setlocal shiftwidth=2 tabstop=2
+autocmd FileType graphql setlocal expandtab shiftwidth=2 softtabstop=2
+autocmd FileType proto setlocal expandtab shiftwidth=2 softtabstop=2
+
 
 " TypeScript: see TYPESCRIPT PLUGIN section
 " autocmd BufNewFile,BufRead *.ts set filetype=typescript
