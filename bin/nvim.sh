@@ -39,5 +39,8 @@ nvim +PluginUpdate +qall
 nvim +UpdateRemotePlugins +qall
 nvim +GoInstallBinaries +qall
 
+# Fix package version.
+sh $BASE_DIR/bin/freeze.sh
+
 echo "Done!"
 exit 0

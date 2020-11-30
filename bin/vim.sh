@@ -37,5 +37,8 @@ pip3 install --user --upgrade pynvim
 vim +PluginUpdate +qall
 vim +GoInstallBinaries +qall
 
+# Fix package version.
+sh $BASE_DIR/bin/freeze.sh
+
 echo "Done!"
 exit 0
