@@ -236,6 +236,7 @@ autocmd BufNewFile,BufRead *.gql set filetype=graphql
 autocmd BufNewFile,BufRead *.graphql set filetype=graphql
 autocmd BufNewFile,BufRead *.proto set filetype=proto
 autocmd BufNewFile,BufRead *.cfg set filetype=haproxy
+autocmd BufRead,BufNewFile */nginx/*.conf if &ft == '' | setfiletype nginx | endif
 
 " ... for typescript and html/css files set 2 spaces.
 autocmd FileType json setlocal shiftwidth=2 tabstop=2
@@ -256,6 +257,7 @@ autocmd FileType vue setlocal shiftwidth=2 tabstop=2
 autocmd FileType graphql setlocal expandtab shiftwidth=2 softtabstop=2
 autocmd FileType proto setlocal expandtab shiftwidth=2 softtabstop=2
 autocmd FileType haproxy setlocal expandtab shiftwidth=2 softtabstop=2
+autocmd FileType nginx setlocal expandtab shiftwidth=2 softtabstop=2
 
 
 " TypeScript: see TYPESCRIPT PLUGIN section
