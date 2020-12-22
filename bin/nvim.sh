@@ -25,6 +25,9 @@ do
     git clone https://github.com/${plugin} $HOME/.config/nvim/bundle/$name
 done
 
+# GoLang requirements.
+go get -u github.com/segmentio/golines
+
 # Install fonts.
 mkdir -p ~/.local/share/fonts && \
 rm -Rf /tmp/editor-code-fonts/ && \
