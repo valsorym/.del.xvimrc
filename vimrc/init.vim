@@ -216,6 +216,10 @@ set autoindent
 "  Display wildcards: tabs and spaces at the end.
 set list listchars=tab:»·,trail:·
 
+" FILE SETTINGS
+"  Automatic refresh of the buffer if an open file is changed.
+set autoread
+
 "'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''"
 "'' FILE ASSOCIATION                                                        ''"
 "'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''"
@@ -678,11 +682,11 @@ autocmd QuickFixCmdPost    l* nested lwindow
 "     Ctrl+f - run go fmt.
 " DOC:
 "     https://github.com/fatih/vim-go
-"""let g:go_fmt_command="goimports"
-let g:go_fmt_command="golines"
-let g:go_fmt_options={
-    \ 'golines': '-m 79',
-    \ }
+let g:go_fmt_command="goimports"
+""" let g:go_fmt_command="golines"
+""" let g:go_fmt_options={
+"""     \ 'golines': '-m 79',
+"""     \ }
 let g:go_fmt_fail_silently=1
 let g:go_fmt_autosave=1 " automatic formatting when saving
 let g:go_doc_keywordprg_enabled=0
