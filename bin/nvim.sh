@@ -27,6 +27,7 @@ done
 
 # GoLang requirements.
 go get -u github.com/segmentio/golines
+go get -u github.com/jstemmer/gotags
 
 # Install fonts.
 mkdir -p ~/.local/share/fonts && \
