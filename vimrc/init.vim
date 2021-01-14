@@ -66,6 +66,7 @@ Plugin 'terryma/vim-multiple-cursors'
 Plugin 'posva/vim-vue'
 Plugin 'fatih/vim-go'
 Plugin 'vim-scripts/grep.vim'
+Plugin 'preservim/tagbar'
 
 call vundle#end()
 filetype plugin indent on
@@ -712,6 +713,57 @@ augroup go
     autocmd FileType go nmap <C-f> <Esc>:GoFmt<CR>
 augroup END
 
+"'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''"
+"'' TAGBAR                                                           ''"
+"'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''"
+" USAGE:
+"     F10 - toggle tagbar
+" DOC:
+"     https://github.com/preservim/tagbar
+"
+"     GoLang: https://github.com/jstemmer/gotags
+nmap <F10> :TagbarToggle<CR>
+
+let g:tagbar_left=0
+let g:tagbar_autofocus=1
+let g:tagbar_compact=1
+let g:tagbar_type_go={
+	\ 'ctagstype' : 'go',
+	\ 'kinds'     : [
+		\ 'c:constants',
+		\ 'v:variables',
+		\ 't:types',
+		\ 'n:interfaces',
+		\ 'w:fields',
+		\ 'm:methods',
+		\ 'f:functions'
+	\ ],
+	\ 'sro' : '.',
+	\ 'kind2scope' : {
+		\ 't' : 'ctype',
+		\ 'n' : 'ntype'
+	\ },
+	\ 'scope2kind' : {
+		\ 'ctype' : 't',
+		\ 'ntype' : 'n'
+	\ },
+	\ 'ctagsbin'  : 'gotags',
+	\ 'ctagsargs' : '-sort -silent'
+\ }
+
+"\ 'kinds'     : [
+"    \ 'p:package',
+"	\ 'i:imports:1',
+"	\ 'c:constants',
+"	\ 'v:variables',
+"	\ 't:types',
+"	\ 'n:interfaces',
+"	\ 'w:fields',
+"	\ 'e:embedded',
+"	\ 'm:methods',
+"	\ 'r:constructor',
+"	\ 'f:functions'
+"\ ],
 "'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''"
 "'' RESWAP                                                                  ''"
 "'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''"
