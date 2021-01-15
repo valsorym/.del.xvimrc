@@ -1,6 +1,6 @@
 " NEO/VIM CONFIGURATIONS
 " Author:  valsorym <valsorym.e@gmail.com>
-" Copyleft: 2012-2020
+" Copyleft: 2012-2021
 
 " For vim, save as: ~/.vimrc
 " For neovim, save as: ~/.config/nvim/init.vim
@@ -463,7 +463,7 @@ nmap <leader>x :TrimSpaces<CR>
 
 " Position and size.
 let g:NERDTreeWinPos='left'
-let g:NERDTreeWinSize=33
+let g:NERDTreeWinSize=37
 
 " If used NERDTreeFind - find the file in the directory tree is not my root
 " directory (installed as Shift+c). But if set the autochdir the root
@@ -506,7 +506,11 @@ endfunction
 
 " NERDTreeSync call the NERDTreeTabsFind method.
 function! NERDTreeSync()
-    if &modifiable && NERDTreeIsOpen() && strlen(expand('%')) > 0 && !&diff
+    " The path is not synchronized if the cursor is in the tagbar buffer.
+    let s:is_tagbar_buffer = stridx(expand("%"), "__Tagbar__")
+
+    if &modifiable && NERDTreeIsOpen() && strlen(expand('%')) > 0 && !&diff 
+                \ && s:is_tagbar_buffer < 0
         try
             NERDTreeTabsFind
             wincmd p
@@ -517,7 +521,8 @@ function! NERDTreeSync()
             let s:root = fnamemodify(t:root, ':t')
             let a:root = substitute(expand("%"), t:root . "/" , "", "")
             "exec "set titlestring=". s:root .":\\ %-25.55F titlelen=79"
-            exec "set titlestring=". toupper(s:root) .":\\ \\ \\ ./". a:root ." titlelen=79"
+            exec "set titlestring=". toupper(s:root) .":\\ \\ \\ ./". a:root
+                        \ ." titlelen=79"
         catch
         endtry
     endif
@@ -702,7 +707,7 @@ let g:go_highlight_extra_types=1
 let g:go_highlight_generate_tags=1
 let g:go_highlight_function_calls=1
 "let g:go_gocode_unimported_packages=1
-"
+
 augroup go
     autocmd!
     " Customization .go files: show by default 4 spaces for a tab.
@@ -714,7 +719,7 @@ augroup go
 augroup END
 
 "'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''"
-"'' TAGBAR                                                           ''"
+"'' TAGBAR                                                                  ''"
 "'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''"
 " USAGE:
 "     F10 - toggle tagbar
@@ -722,20 +727,52 @@ augroup END
 "     https://github.com/preservim/tagbar
 "
 "     GoLang: https://github.com/jstemmer/gotags
-nmap <F10> :TagbarToggle<CR>
+" Smart toggle tagbar.
+function! ToggleTagbar()
+    " Disable autofocus force.
+    let g:tagbar_autofocus=0
 
+    " Don't toggle tagbar if cursor is in tagbar or nerdtree buffers.
+    let s:is_tagbar_buffer = stridx(expand("%"), "__Tagbar__")
+    let s:is_nerdtree_buffer = stridx(expand("%"), "NERD_tree_")
+    let b:initial_buffer = 1
+
+    if s:is_tagbar_buffer >=0 || s:is_nerdtree_buffer >=0
+        echomsg "You cannot run TagBar inside TagBar or NERDTree buffers!"
+    else
+        TagbarToggle
+    endif
+
+    " Go back to initial buffer.
+    while !exists('b:initial_buffer')
+        wincmd w
+    endwhile
+    unlet b:initial_buffer
+endfunction
+
+nmap <F10> :call ToggleTagbar()<CR>
+
+let g:tagbar_width = 36
 let g:tagbar_left=0
-let g:tagbar_autofocus=1
+let g:tagbar_autofocus=0
 let g:tagbar_compact=1
-let g:tagbar_type_go={
+let g:tagbar_sort=1      " tagbar shows tags in order of they created in file
+let g:tagbar_foldlevel=1 " 0 - close tagbar folds by default
+
+" https://github.com/preservim/tagbar/wiki#exuberant-ctags-vanilla
+let g:tagbar_type_go = {
 	\ 'ctagstype' : 'go',
 	\ 'kinds'     : [
+		\ 'p:package',
+		\ 'i:imports:1',
 		\ 'c:constants',
 		\ 'v:variables',
 		\ 't:types',
 		\ 'n:interfaces',
 		\ 'w:fields',
+		\ 'e:embedded',
 		\ 'm:methods',
+		\ 'r:constructor',
 		\ 'f:functions'
 	\ ],
 	\ 'sro' : '.',
@@ -751,19 +788,6 @@ let g:tagbar_type_go={
 	\ 'ctagsargs' : '-sort -silent'
 \ }
 
-"\ 'kinds'     : [
-"    \ 'p:package',
-"	\ 'i:imports:1',
-"	\ 'c:constants',
-"	\ 'v:variables',
-"	\ 't:types',
-"	\ 'n:interfaces',
-"	\ 'w:fields',
-"	\ 'e:embedded',
-"	\ 'm:methods',
-"	\ 'r:constructor',
-"	\ 'f:functions'
-"\ ],
 "'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''"
 "'' RESWAP                                                                  ''"
 "'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''"
