@@ -463,7 +463,7 @@ nmap <leader>x :TrimSpaces<CR>
 
 " Position and size.
 let g:NERDTreeWinPos='left'
-let g:NERDTreeWinSize=37
+let g:NERDTreeWinSize=33
 
 " If used NERDTreeFind - find the file in the directory tree is not my root
 " directory (installed as Shift+c). But if set the autochdir the root
