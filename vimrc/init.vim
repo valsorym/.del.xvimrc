@@ -221,6 +221,14 @@ set list listchars=tab:»·,trail:·
 "  Automatic refresh of the buffer if an open file is changed.
 set autoread
 
+" SYSTEM
+"  The length of time Vim waits after you stop typing before it
+"  triggers the plugin is governed by the setting updatetime.
+"  Defaults == 5000.
+"  Note: The lower the updatetime - the more glitches!
+"        For Vim 7 the value must not be less than 1000 (one thousand)!
+set updatetime=256
+
 "'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''"
 "'' FILE ASSOCIATION                                                        ''"
 "'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''"
