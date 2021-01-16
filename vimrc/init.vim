@@ -67,6 +67,9 @@ Plugin 'posva/vim-vue'
 Plugin 'fatih/vim-go'
 Plugin 'vim-scripts/grep.vim'
 Plugin 'preservim/tagbar'
+Plugin 'herringtondarkholme/yats.vim'
+Plugin 'yuezk/vim-js'
+Plugin 'maxmellon/vim-jsx-pretty'
 
 call vundle#end()
 filetype plugin indent on
@@ -121,7 +124,7 @@ if has('multi_byte')
     set fileencodings=utf-8,ucs-bom,latin1
     setglobal fileencoding=utf-8
     if &termencoding == ''
-        let &termencoding = &encoding
+        let &termencoding=&encoding
     endif
 endif
 
@@ -285,7 +288,7 @@ autocmd BufEnter * :syntax sync fromstart
 
 " Old version NeoVim and Vim.
 if has('nvim')
-    let g:go_version_warning = 0
+    let g:go_version_warning=0
 endif
 
 
@@ -515,7 +518,7 @@ endfunction
 " NERDTreeSync call the NERDTreeTabsFind method.
 function! NERDTreeSync()
     " The path is not synchronized if the cursor is in the tagbar buffer.
-    let s:is_tagbar_buffer = stridx(expand("%"), "__Tagbar__")
+    let s:is_tagbar_buffer=stridx(expand("%"), "__Tagbar__")
 
     if &modifiable && NERDTreeIsOpen() && strlen(expand('%')) > 0 && !&diff 
                 \ && s:is_tagbar_buffer < 0
@@ -525,9 +528,9 @@ function! NERDTreeSync()
 
             " Update window's title.
             " Add information about current project name.
-            let t:root = g:NERDTree.ForCurrentTab().getRoot().path.str()
-            let s:root = fnamemodify(t:root, ':t')
-            let a:root = substitute(expand("%"), t:root . "/" , "", "")
+            let t:root=g:NERDTree.ForCurrentTab().getRoot().path.str()
+            let s:root=fnamemodify(t:root, ':t')
+            let a:root=substitute(expand("%"), t:root . "/" , "", "")
             "exec "set titlestring=". s:root .":\\ %-25.55F titlelen=79"
             exec "set titlestring=". toupper(s:root) .":\\ \\ \\ ./". a:root
                         \ ." titlelen=79"
@@ -604,7 +607,7 @@ nmap <C-t> :call OpenBufExplorer()<CR>
 " DOC:
 "     https://github.com/Shougo/deoplete.nvim
 if has('nvim') || has("gui_running")
-    let g:deoplete#enable_at_startup = 1
+    let g:deoplete#enable_at_startup=1
 endif
 
 "'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''"
@@ -630,10 +633,10 @@ nmap <leader>i :ColorToggle<CR>
 "     https://github.com/matze/vim-move
 
 " Key mapping.
-let g:move_key_modifier = 'S'
+let g:move_key_modifier='S'
 
 " Do not change of the moved block.
-let g:move_auto_indent = 0
+let g:move_auto_indent=0
 
 "'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''"
 "'' MULTIPLE CURSORS                                                        ''"
@@ -675,16 +678,17 @@ endfunction
 "'' JSON                                                                    ''"
 "'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''"
 " JSON for Vim.
-let g:vim_json_syntax_conceal = 0 " 0 - JSON highlighting in raw mode.
+let g:vim_json_syntax_conceal=0 " 0 - JSON highlighting in raw mode.
 
 
 "'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''"
 "'' TYPESCRIPT                                                              ''"
 "'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''"
-let g:typescript_compiler_binary = 'tsc'
-let g:typescript_compiler_options = ''
+let g:typescript_compiler_binary='tsc'
+let g:typescript_compiler_options=''
 autocmd BufNewFile,BufRead *.ts set filetype=typescript
-autocmd FileType typescript :set makeprg=tsc
+"autocmd FileType typescript :set makeprg=tsc
+autocmd FileType typescript setlocal formatprg=prettier\ --parser\ typescript
 autocmd QuickFixCmdPost [^l]* nested cwindow
 autocmd QuickFixCmdPost    l* nested lwindow
 
@@ -741,9 +745,9 @@ function! ToggleTagbar()
     let g:tagbar_autofocus=0
 
     " Don't toggle tagbar if cursor is in tagbar or nerdtree buffers.
-    let s:is_tagbar_buffer = stridx(expand("%"), "__Tagbar__")
-    let s:is_nerdtree_buffer = stridx(expand("%"), "NERD_tree_")
-    let b:initial_buffer = 1
+    let s:is_tagbar_buffer=stridx(expand("%"), "__Tagbar__")
+    let s:is_nerdtree_buffer=stridx(expand("%"), "NERD_tree_")
+    let b:initial_buffer=1
 
     if s:is_tagbar_buffer >=0 || s:is_nerdtree_buffer >=0
         echomsg "You cannot run TagBar inside TagBar or NERDTree buffers!"
@@ -760,7 +764,7 @@ endfunction
 
 nmap <F10> :call ToggleTagbar()<CR>
 
-let g:tagbar_width = 36
+let g:tagbar_width=36
 let g:tagbar_left=0
 let g:tagbar_autofocus=0
 let g:tagbar_compact=1
@@ -768,7 +772,7 @@ let g:tagbar_sort=1      " tagbar shows tags in order of they created in file
 let g:tagbar_foldlevel=1 " 0 - close tagbar folds by default
 
 " https://github.com/preservim/tagbar/wiki#exuberant-ctags-vanilla
-let g:tagbar_type_go = {
+let g:tagbar_type_go={
 	\ 'ctagstype' : 'go',
 	\ 'kinds'     : [
 		\ 'p:package',
