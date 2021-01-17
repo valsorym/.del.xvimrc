@@ -138,7 +138,6 @@ colorscheme code-theme-term
 if $TERM != "xterm-256color"
     set cursorline
 endif
-""" hi clear CursorLine
 """ colorscheme absent-contrast " rainglow/vim
 
 "'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''"
