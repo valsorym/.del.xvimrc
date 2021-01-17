@@ -133,8 +133,12 @@ endif
 syntax on
 set background=dark
 colorscheme code-theme-term
-set cursorline
-hi clear CursorLine
+
+" Activate cursorline for gVIM/NeoVim-QT
+if $TERM != "xterm-256color"
+    set cursorline
+endif
+""" hi clear CursorLine
 """ colorscheme absent-contrast " rainglow/vim
 
 "'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''"

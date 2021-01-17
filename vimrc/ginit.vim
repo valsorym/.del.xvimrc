@@ -95,6 +95,7 @@ set laststatus=2
 syntax on
 set background=dark
 colorscheme code-theme-gui
+
 hi clear CursorLine
 hi CursorLine guibg=#001821
 """ colorscheme absent-contrast " rainglow/vim
