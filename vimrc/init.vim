@@ -134,6 +134,7 @@ syntax on
 set background=dark
 colorscheme code-theme-term
 set cursorline
+hi clear CursorLine
 """ colorscheme absent-contrast " rainglow/vim
 
 "'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''"
