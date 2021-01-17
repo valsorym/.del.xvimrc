@@ -61,7 +61,7 @@ Plugin 'valsorym/roxma-vim-hug-neovim-rpc', {'name': 'vim-hug-neovim-rpc'} " 'ro
 Plugin 'valsorym/chrisbra-colorizer', {'name': 'colorizer'} " 'chrisbra/colorizer'
 Plugin 'valsorym/matze-vim-move', {'name': 'vim-move'} " 'matze/vim-move'
 Plugin 'valsorym/elzr-vim-json', {'name': 'vim-json'} " 'elzr/vim-json'
-Plugin 'valsorym/terryma/vim-multiple-cursors', {'name': 'vim-multiple-cursors'} " 'terryma/vim-multiple-cursors'
+Plugin 'valsorym/terryma-vim-multiple-cursors', {'name': 'vim-multiple-cursors'} " 'terryma/vim-multiple-cursors'
 
 Plugin 'valsorym/posva-vim-vue', {'name': 'vim-vue'} " 'posva/vim-vue'
 Plugin 'valsorym/fatih-vim-go', {'name': 'vim-go'} " 'fatih/vim-go'
@@ -69,7 +69,7 @@ Plugin 'valsorym/vim-scripts-grep.vim', {'name': 'grep.vim'} " 'vim-scripts/grep
 Plugin 'valsorym/preservim-tagbar', {'name': 'tagbar'} " 'preservim/tagbar'
 Plugin 'valsorym/herringtondarkholme-yats.vim', {'name': 'yats.vim'} " 'herringtondarkholme/yats.vim'
 Plugin 'valsorym/yuezk-vim-js', {'name': 'vim-js'} " 'yuezk/vim-js'
-Plugin 'valsorym/maxmellon/vim-jsx-pretty', {'name': 'vim-jsx-pretty'} " 'maxmellon/vim-jsx-pretty'
+Plugin 'valsorym/maxmellon-vim-jsx-pretty', {'name': 'vim-jsx-pretty'} " 'maxmellon/vim-jsx-pretty'
 
 call vundle#end()
 filetype plugin indent on
@@ -133,6 +133,7 @@ endif
 syntax on
 set background=dark
 colorscheme code-theme-term
+set cursorline
 """ colorscheme absent-contrast " rainglow/vim
 
 "'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''"

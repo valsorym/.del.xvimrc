@@ -1,6 +1,6 @@
 " NEO/VIM CONFIGURATIONS
 " Author:  valsorym <valsorym.e@gmail.com>
-" Copyleft: 2012-2019
+" Copyleft: 2012-2021
 
 " For vim, save as: ~/.gvimrc
 " For neovim, save as: ~/.config/nvim/ginit.vim
@@ -95,6 +95,8 @@ set laststatus=2
 syntax on
 set background=dark
 colorscheme code-theme-gui
+hi clear CursorLine
+hi CursorLine guibg=#001821
 """ colorscheme absent-contrast " rainglow/vim
 
 "'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''"
