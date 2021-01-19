@@ -134,9 +134,42 @@ syntax on
 set background=dark
 colorscheme code-theme-term
 
-" Activate cursorline for gVIM/NeoVim-QT
+" Change cursorline for gVIM/NeoVim-QT
 if $TERM != "xterm-256color"
-    set cursorline
+    " Different cursor styles in different buffers.
+    " NERD_tree and Tagbar have a brighter cursor color when buffer is active,
+    " and dim cursor color when focus is lost.
+    " Main editor buffor has dim cursor color by default and hides the cursor
+    " when buffer lost focus.
+    setlocal nocursorline
+    augroup CursorLine
+        au!
+        au BufLeave,WinLeave,FocusLost,CmdwinLeave * call OnLeave()
+        au BufEnter,VimEnter,WinEnter,BufWinEnter,FocusGained,CmdwinEnter * call OnFocus()
+    augroup END
+
+    function! OnFocus()
+        if (bufname("%") =~ "NERD_Tree_" || bufname("%") =~ "__Tagbar__")
+            setlocal cursorline
+            hi clear CursorLine
+            hi clear Cursor
+            hi CursorLine guibg=#003a45 guifg=#ffffff gui=bold
+            hi Cursor guibg=#003a45 guifg=#ffffff gui=bold
+        else
+            setlocal cursorline
+            hi clear CursorLine
+            hi clear Cursor
+            hi CursorLine guibg=#00202a
+            hi Cursor guibg=#555555
+            "call OnLeave() " uncomment it to hide cursorline in main window
+        endif
+    endfunction
+
+    function! OnLeave()
+        if (!(bufname("%") =~ "NERD_Tree_" || bufname("%") =~ "__Tagbar__"))
+            setlocal nocursorline
+        endif
+    endfunction
 endif
 """ colorscheme absent-contrast " rainglow/vim
 
@@ -525,7 +558,7 @@ function! NERDTreeSync()
     " The path is not synchronized if the cursor is in the tagbar buffer.
     let s:is_tagbar_buffer=stridx(expand("%"), "__Tagbar__")
 
-    if &modifiable && NERDTreeIsOpen() && strlen(expand('%')) > 0 && !&diff 
+    if &modifiable && NERDTreeIsOpen() && strlen(expand('%')) > 0 && !&diff
                 \ && s:is_tagbar_buffer < 0
         try
             NERDTreeTabsFind
@@ -776,7 +809,7 @@ let g:tagbar_compact=1
 let g:tagbar_sort=1      " tagbar shows tags in order of they created in file
 let g:tagbar_foldlevel=1 " 0 - close tagbar folds by default
 
-" https://github.com/preservim/tagbar/wiki#exuberant-ctags-vanilla
+" https://github.com/preservim/tagbar/wiki
 let g:tagbar_type_go={
 	\ 'ctagstype' : 'go',
 	\ 'kinds'     : [
@@ -803,6 +836,25 @@ let g:tagbar_type_go={
 	\ },
 	\ 'ctagsbin'  : 'gotags',
 	\ 'ctagsargs' : '-sort -silent'
+\ }
+
+let g:tagbar_type_typescript = {
+  \ 'ctagsbin' : 'tstags',
+  \ 'ctagsargs' : '-f-',
+  \ 'kinds': [
+    \ 'e:enums:0:1',
+    \ 'f:function:0:1',
+    \ 't:typealias:0:1',
+    \ 'M:Module:0:1',
+    \ 'I:import:0:1',
+    \ 'i:interface:0:1',
+    \ 'C:class:0:1',
+    \ 'm:method:0:1',
+    \ 'p:property:0:1',
+    \ 'v:variable:0:1',
+    \ 'c:const:0:1',
+  \ ],
+  \ 'sort' : 0
 \ }
 
 "'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''"
