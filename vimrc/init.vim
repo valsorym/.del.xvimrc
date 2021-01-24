@@ -161,7 +161,7 @@ if $TERM != "xterm-256color"
             hi clear Cursor
             hi CursorLine guibg=#00202a
             hi Cursor guibg=#555555
-            "call OnLeave() " uncomment it to hide cursorline in main window
+            call OnLeave() " uncomment it to hide cursorline in main window
         endif
     endfunction
 
@@ -487,7 +487,7 @@ endif " autocmd
 "'' CLEAR DEBRIS                                                            ''"
 "'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''"
 " Remove trailing blanks.
-" USAGE: <leader>x, a
+" USAGE: <A-x>, a
 " DOC:
 "     https://github.com/valsorym/vim-clear
 "
@@ -496,7 +496,7 @@ command -bar -nargs=? ShowSpaces call ShowSpaces(<args>)
 command -bar -nargs=0 -range=% TrimSpaces <line1>,<line2>call TrimSpaces()
 imap <C-x> <Esc>:TrimSpaces<CR>
 nmap <C-x> :TrimSpaces<CR>
-nmap <leader>x :TrimSpaces<CR>
+nmap <A-x> :TrimSpaces<CR>
 
 "'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''"
 "'' NERDTREE / NERDTREE-TABS                                                ''"
@@ -659,7 +659,7 @@ endif
 "     https://github.com/valsorym/vim-colorizer
 
 " Key mapping.
-nmap <leader>i :ColorToggle<CR>
+nmap <A-i> :ColorToggle<CR>
 
 "'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''"
 "'' MOVE                                                                    ''"
@@ -869,5 +869,5 @@ function ReSwap()
     execute ':echo "The swap file was changed!"'
 endfunction
 
-nmap <leader>q :call ReSwap()<CR>
+nmap <A-q> :call ReSwap()<CR>
 

@@ -103,9 +103,9 @@ Keyboard Shortcuts
 - `C-w`, `<-` or `->` - choose window;
 - `C-u` - undo (don't use just the `u` for undo);
 - `C-r` - redo;
-- `Leader`,`q` - reconnect the swap file - it helps when working with files through SSHFS, after crash;
-- `Leader`,`i` - color highlight toggle.
-- `Leader`,`x` - remove trailing blanks;
+- `A-q` - reconnect the swap file - it helps when working with files through SSHFS, after crash;
+- `A-i` - color highlight toggle.
+- `A-x` - remove trailing blanks;
 
 P.s. The leader button set as `.` (dot).
 
