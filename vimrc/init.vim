@@ -70,6 +70,7 @@ Plugin 'valsorym/preservim-tagbar', {'name': 'tagbar'} " 'preservim/tagbar'
 Plugin 'valsorym/herringtondarkholme-yats.vim', {'name': 'yats.vim'} " 'herringtondarkholme/yats.vim'
 Plugin 'valsorym/yuezk-vim-js', {'name': 'vim-js'} " 'yuezk/vim-js'
 Plugin 'valsorym/maxmellon-vim-jsx-pretty', {'name': 'vim-jsx-pretty'} " 'maxmellon/vim-jsx-pretty'
+Plugin 'valsorym/cespare-vim-go-templates', {'name': 'vim-go-templates'} " 'cespare/vim-go-templates'
 
 call vundle#end()
 filetype plugin indent on
@@ -276,13 +277,14 @@ set updatetime=256
 " Correct syntax highlighting for certain file types.
 autocmd BufNewFile,BufRead *.less set filetype=less
 autocmd BufNewFile,BufRead *.html set filetype=htmldjango
-autocmd BufNewFile,BufRead *.tmpl set filetype=html.tornadotmpl
+autocmd BufNewFile,BufRead *.tornado set filetype=html.tornadotmpl
 autocmd BufNewFile,BufRead *.py set filetype=python
 autocmd BufNewFile,BufRead *.pyx set filetype=cython
 autocmd BufNewFile,BufRead *.css set filetype=css
 autocmd BufNewFile,BufRead *.scss set filetype=scss
 autocmd BufNewFile,BufRead *.po set filetype=po
 autocmd BufNewFile,BufRead *.go set filetype=go
+autocmd BufNewFile,BufRead *.gohtml set filetype=gotplhtml
 autocmd BufNewFile,BufRead *.jinja set filetype=jinja
 autocmd BufNewFile,BufRead *.json set filetype=json
 autocmd BufNewFile,BufRead *.template set filetype=txt
