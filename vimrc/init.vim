@@ -70,7 +70,6 @@ Plugin 'valsorym/preservim-tagbar', {'name': 'tagbar'} " 'preservim/tagbar'
 Plugin 'valsorym/herringtondarkholme-yats.vim', {'name': 'yats.vim'} " 'herringtondarkholme/yats.vim'
 Plugin 'valsorym/yuezk-vim-js', {'name': 'vim-js'} " 'yuezk/vim-js'
 Plugin 'valsorym/maxmellon-vim-jsx-pretty', {'name': 'vim-jsx-pretty'} " 'maxmellon/vim-jsx-pretty'
-Plugin 'valsorym/cespare-vim-go-templates', {'name': 'vim-go-templates'} " 'cespare/vim-go-templates'
 
 call vundle#end()
 filetype plugin indent on
@@ -298,7 +297,7 @@ autocmd BufRead,BufNewFile */nginx/*.conf if &ft == '' | setfiletype nginx | end
 autocmd FileType json setlocal shiftwidth=2 tabstop=2
 autocmd FileType yaml setlocal shiftwidth=2 tabstop=2
 autocmd FileType html setlocal shiftwidth=2 tabstop=2
-autocmd FileType gohtml setlocal shiftwidth=2 tabstop=2
+autocmd FileType gotplhtml setlocal shiftwidth=2 tabstop=2
 autocmd FileType html.tornadotmpl setlocal shiftwidth=2 tabstop=2
 autocmd FileType htmldjango setlocal shiftwidth=2 tabstop=2
 autocmd FileType jinja setlocal shiftwidth=2 tabstop=2
