@@ -104,8 +104,9 @@ Keyboard Shortcuts
 - `C-u` - undo (don't use just the `u` for undo);
 - `C-r` - redo;
 - `A-q` - reconnect the swap file - it helps when working with files through SSHFS, after crash;
-- `A-i` - color highlight toggle.
-- `A-x` - remove trailing blanks;
+- `A-i` - color highlight toggle;
+- `C-x`, `a` - remove trailing blanks;
+- `C-Up` / `C-Down` - scroll a 30% of the screen up or down.
 
 P.s. The leader button set as `.` (dot).
 
@@ -121,8 +122,8 @@ P.p.s. The other buttons correspond to the parameters by default.
 - `C-k` - move tab to right;
 - `C-l` - move tab to last position;
 - `C-z` - open first tab;
-- `C-ArrowLeft` or `F5` - tab prev;
-- `C-ArrowRight` or `F6` - tab next;
+- `F5` - tab prev;
+- `F6` - tab next.
 
 
 ## Copy & Paste system's clipboard.

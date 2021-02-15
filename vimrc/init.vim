@@ -270,6 +270,23 @@ set autoread
 "        For Vim 7 the value must not be less than 1000 (one thousand)!
 set updatetime=256
 
+" SCROLL
+" Use Ctrl+Up and Ctrl+Down scroll a 30% of the screen up or down.
+function! ScrollQuarter(move)
+    let height=winheight(0)
+    if a:move == 'up'
+        let key="\<C-Y>"
+    else
+        let key="\<C-E>"
+    endif
+    execute 'normal! ' . height/3 . key
+endfunction
+
+imap <C-Up> <Esc>:call ScrollQuarter('up')<CR>
+nmap <C-Up> :call ScrollQuarter('up')<CR>
+imap <C-Down> <Esc>:call ScrollQuarter('down')<CR>
+nmap <C-Down> :call ScrollQuarter('down')<CR>
+
 "'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''"
 "'' FILE ASSOCIATION                                                        ''"
 "'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''"
@@ -415,13 +432,13 @@ set showtabline=2
 " USAGE: F5 or Ctrl+ArrowLeft
 imap <F5> <Esc>:tabprev<CR>
 nmap <F5> :tabprev<CR>
-map <C-Left> :tabprev<CR>
+" map <C-Left> :tabprev<CR>
 
 " NEXT TAB
 " USAGE: F6 or Ctrl+ArrowRight
 imap <F6> <Esc>:tabnext<CR>
 nmap <F6> :tabnext<CR>
-map <C-Right> :tabnext<CR>
+" map <C-Right> :tabnext<CR>
 
 " CREATE NEW TAB
 " USAGE: F7 or Ctrl+n
