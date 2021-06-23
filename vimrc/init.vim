@@ -71,6 +71,8 @@ Plugin 'valsorym/herringtondarkholme-yats.vim', {'name': 'yats.vim'} " 'herringt
 Plugin 'valsorym/yuezk-vim-js', {'name': 'vim-js'} " 'yuezk/vim-js'
 Plugin 'valsorym/maxmellon-vim-jsx-pretty', {'name': 'vim-jsx-pretty'} " 'maxmellon/vim-jsx-pretty'
 
+Plugin 'valsorym/vim-matchup', {'name': 'vim-matchup'} " 'andymass/vim-matchup'
+
 call vundle#end()
 filetype plugin indent on
 
@@ -890,3 +892,17 @@ endfunction
 
 nmap <A-q> :call ReSwap()<CR>
 
+
+"'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''"
+"'' MATCHUP                                                                 ''"
+"'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''"
+" Search for a closing tag, parenthesis, or word under the crusor.
+" USAGE: g%, [%, ]%, and z%
+let g:loaded_matchit = 1
+augroup matchup_matchparen_highlight
+  autocmd!
+  autocmd ColorScheme * hi MatchParen    cterm=Bold gui=Bold  " ctermbg=LightCyan guibg=#181818 cterm=None gui=None
+  autocmd ColorScheme * hi MatchWord     cterm=Bold gui=Bold  " ctermbg=LightCyan guibg=#181818 cterm=None gui=None
+  autocmd ColorScheme * hi MatchParenCur cterm=Bold gui=Bold  " ctermbg=LightCyan guibg=#181818 cterm=None gui=None
+  autocmd ColorScheme * hi MatchWordCur  cterm=Bold gui=Bold  " ctermbg=LightCyan guibg=#181818 cterm=None gui=None
+augroup END
