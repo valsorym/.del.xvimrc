@@ -253,8 +253,11 @@ set nowrap
 "     autoindent  copy indent from current line when starting a new line
 "                 (typing <CR> in Insert mode or when using the "o" or "O"
 "                 command);
-"     cindent     enables automatic C program indenting.
+"     cindent     enables automatic C program indenting;
+"     indentexpr  expression which is evaluated to obtain the proper
+"                 indent for a line.
 set autoindent
+set indentexpr=-1
 
 " SPECIAL CHAR SETTINGS
 "  Display wildcards: tabs and spaces at the end.
