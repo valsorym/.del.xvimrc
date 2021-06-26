@@ -316,26 +316,26 @@ autocmd BufNewFile,BufRead *.cfg set filetype=haproxy
 autocmd BufRead,BufNewFile */nginx/*.conf if &ft == '' | setfiletype nginx | endif
 
 " ... for typescript and html/css files set 2 spaces.
-autocmd FileType json setlocal shiftwidth=2 tabstop=2
-autocmd FileType yaml setlocal shiftwidth=2 tabstop=2
-autocmd FileType html setlocal shiftwidth=2 tabstop=2
-autocmd FileType gotplhtml setlocal shiftwidth=2 tabstop=2
-autocmd FileType html.tornadotmpl setlocal shiftwidth=2 tabstop=2
-autocmd FileType htmldjango setlocal shiftwidth=2 tabstop=2
-autocmd FileType jinja setlocal shiftwidth=2 tabstop=2
-autocmd FileType scss setlocal shiftwidth=2 tabstop=2
-autocmd FileType css setlocal shiftwidth=2 tabstop=2
-autocmd FileType typescript setlocal shiftwidth=2 tabstop=2
-autocmd FileType javascript setlocal shiftwidth=2 tabstop=2
+autocmd FileType json setlocal shiftwidth=4 tabstop=4
+autocmd FileType yaml setlocal shiftwidth=4 tabstop=4
+autocmd FileType html setlocal shiftwidth=4 tabstop=4
+autocmd FileType gotplhtml setlocal shiftwidth=4 tabstop=4
+autocmd FileType html.tornadotmpl setlocal shiftwidth=4 tabstop=4
+autocmd FileType htmldjango setlocal shiftwidth=4 tabstop=4
+autocmd FileType jinja setlocal shiftwidth=4 tabstop=4
+autocmd FileType scss setlocal shiftwidth=4 tabstop=4
+autocmd FileType css setlocal shiftwidth=4 tabstop=4
+autocmd FileType typescript setlocal shiftwidth=4 tabstop=4
+autocmd FileType javascript setlocal shiftwidth=4 tabstop=4
 autocmd FileType python setlocal expandtab shiftwidth=4 softtabstop=4
-autocmd FileType sh setlocal shiftwidth=2 tabstop=2
+autocmd FileType sh setlocal shiftwidth=4 tabstop=4
 autocmd FileType make setlocal noexpandtab
 autocmd FileType go setlocal noexpandtab
-autocmd FileType vue setlocal shiftwidth=2 tabstop=2
-autocmd FileType graphql setlocal expandtab shiftwidth=2 softtabstop=2
-autocmd FileType proto setlocal expandtab shiftwidth=2 softtabstop=2
-autocmd FileType haproxy setlocal expandtab shiftwidth=2 softtabstop=2
-autocmd FileType nginx setlocal expandtab shiftwidth=2 softtabstop=2
+autocmd FileType vue setlocal shiftwidth=4 tabstop=4
+autocmd FileType graphql setlocal expandtab shiftwidth=4 softtabstop=4
+autocmd FileType proto setlocal expandtab shiftwidth=4 softtabstop=4
+autocmd FileType haproxy setlocal expandtab shiftwidth=4 softtabstop=4
+autocmd FileType nginx setlocal expandtab shiftwidth=4 softtabstop=4
 
 
 " TypeScript: see TYPESCRIPT PLUGIN section
