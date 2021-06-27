@@ -257,7 +257,7 @@ set nowrap
 "     indentexpr  expression which is evaluated to obtain the proper
 "                 indent for a line.
 set autoindent
-set indentexpr=-1
+set indentexpr=""
 
 " SPECIAL CHAR SETTINGS
 "  Display wildcards: tabs and spaces at the end.
