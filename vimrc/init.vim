@@ -315,7 +315,7 @@ autocmd BufNewFile,BufRead *.proto set filetype=proto
 autocmd BufNewFile,BufRead *.cfg set filetype=haproxy
 autocmd BufRead,BufNewFile */nginx/*.conf if &ft == '' | setfiletype nginx | endif
 
-" ... for typescript and html/css files set 2 spaces.
+" ... for typescript and html/css files is recommended to set 2 spaces.
 autocmd FileType json setlocal shiftwidth=4 tabstop=4
 autocmd FileType yaml setlocal shiftwidth=4 tabstop=4
 autocmd FileType html setlocal shiftwidth=4 tabstop=4
