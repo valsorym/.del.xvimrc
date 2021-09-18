@@ -344,14 +344,9 @@ autocmd FileType nginx setlocal expandtab shiftwidth=4 softtabstop=4
 " GoLang: see VIM-GO PLUGIN section
 " autocmd BufNewFile,BufRead *.go setlocal noexpandtab tabstop=4 shiftwidth=4
 
-" When updated the buffer need update syntax highlighting too. This is
-" important when searching in large files.
+" When updated the buffer need update syntax highlighting too.
+" This is important when searching in large files.
 autocmd BufEnter * :syntax sync fromstart
-
-" Old version NeoVim and Vim.
-if has('nvim')
-    let g:go_version_warning=0
-endif
 
 
 "'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''"
@@ -780,6 +775,11 @@ autocmd QuickFixCmdPost    l* nested lwindow
 "     Ctrl+f - run go fmt.
 " DOC:
 "     https://github.com/fatih/vim-go
+" Old version NeoVim and Vim.
+if has('nvim')
+    let g:go_version_warning=0
+endif
+
 """ " Import management.
 """ let g:go_fmt_command="goimports"
 
@@ -793,14 +793,17 @@ let g:go_fmt_options={
 """ let g:go_fmt_command="gopls"
 """ let g:go_gopls_gofumpt=1
 
+" Info mode.
+let g:go_info_mode = "guru"
+let g:go_auto_type_info = 1
+
 let g:go_fmt_fail_silently=1
 let g:go_fmt_autosave=1 " automatic formatting when saving
 let g:go_doc_keywordprg_enabled=0
 
-let g:go_auto_type_info = 1
-let g:go_list_type="quickfix"
-let g:go_autodetect_gopath=1
-let g:go_gocode_unimported_packages=1
+"let g:go_list_type="quickfix" "bad work
+"let g:go_autodetect_gopath=1
+"let g:go_gocode_unimported_packages=1
 
 let g:go_highlight_types=1
 let g:go_highlight_fields=1
@@ -810,7 +813,7 @@ let g:go_highlight_generate_tags=1
 let g:go_highlight_function_calls=1
 
 " Activate linter.
-let g:go_metalinter_autosave = 0 " not autosave
+let g:go_metalinter_autosave = 1 " with autosave
 let g:go_metalinter_enabled = ['vet', 'golint', 'errcheck', 'test', 'testify']
 let g:go_metalinter_deadline = "3s"
 let g:go_metalinter_autosave_enabled = ['vet', 'golint', 'errcheck', 'test', 'testify']
@@ -938,9 +941,9 @@ nmap <A-q> :call ReSwap()<CR>
 " USAGE: g%, [%, ]%, and z%
 let g:loaded_matchit = 1
 augroup matchup_matchparen_highlight
-  autocmd!
-  autocmd ColorScheme * hi MatchParen    cterm=Bold gui=Bold  " ctermbg=LightCyan guibg=#181818 cterm=None gui=None
-  autocmd ColorScheme * hi MatchWord     cterm=Bold gui=Bold  " ctermbg=LightCyan guibg=#181818 cterm=None gui=None
-  autocmd ColorScheme * hi MatchParenCur cterm=Bold gui=Bold  " ctermbg=LightCyan guibg=#181818 cterm=None gui=None
-  autocmd ColorScheme * hi MatchWordCur  cterm=Bold gui=Bold  " ctermbg=LightCyan guibg=#181818 cterm=None gui=None
+    autocmd!
+    autocmd ColorScheme * hi MatchParen    cterm=Bold gui=Bold  " ctermbg=LightCyan guibg=#181818 cterm=None gui=None
+    autocmd ColorScheme * hi MatchWord     cterm=Bold gui=Bold  " ctermbg=LightCyan guibg=#181818 cterm=None gui=None
+    autocmd ColorScheme * hi MatchParenCur cterm=Bold gui=Bold  " ctermbg=LightCyan guibg=#181818 cterm=None gui=None
+    autocmd ColorScheme * hi MatchWordCur  cterm=Bold gui=Bold  " ctermbg=LightCyan guibg=#181818 cterm=None gui=None
 augroup END
