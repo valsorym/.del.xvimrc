@@ -137,7 +137,7 @@ set background=dark
 colorscheme code-theme-term
 
 " Change cursorline for gVIM/NeoVim-QT
-if $TERM != "xterm-256color"
+if $TERM != 'xterm-256color'
     " Different cursor styles in different buffers.
     " NERD_tree and Tagbar have a brighter cursor color when buffer is active,
     " and dim cursor color when focus is lost.
@@ -151,7 +151,7 @@ if $TERM != "xterm-256color"
     augroup END
 
     function! OnFocus()
-        if (bufname("%") =~ "NERD_Tree_" || bufname("%") =~ "__Tagbar__")
+        if (bufname('%') =~ 'NERD_Tree_' || bufname('%') =~ '__Tagbar__')
             setlocal cursorline
             hi clear CursorLine
             hi clear Cursor
@@ -168,7 +168,7 @@ if $TERM != "xterm-256color"
     endfunction
 
     function! OnLeave()
-        if (!(bufname("%") =~ "NERD_Tree_" || bufname("%") =~ "__Tagbar__"))
+        if (!(bufname('%') =~ 'NERD_Tree_' || bufname('%') =~ '__Tagbar__'))
             setlocal nocursorline
         endif
     endfunction
@@ -251,13 +251,13 @@ set nowrap
 " INDENT SETTINGS
 " Automatic indentation of newline:
 "     autoindent  copy indent from current line when starting a new line
-"                 (typing <CR> in Insert mode or when using the "o" or "O"
+"                 (typing <CR> in Insert mode or when using the 'o' or 'O'
 "                 command);
 "     cindent     enables automatic C program indenting;
 "     indentexpr  expression which is evaluated to obtain the proper
 "                 indent for a line.
 set autoindent
-set indentexpr=""
+set indentexpr=''
 
 " SPECIAL CHAR SETTINGS
 "  Display wildcards: tabs and spaces at the end.
@@ -273,16 +273,18 @@ set autoread
 "  Defaults == 5000.
 "  Note: The lower the updatetime - the more glitches!
 "        For Vim 7 the value must not be less than 1000 (one thousand)!
-set updatetime=256
+if has('nvim') || has('gui_running')
+    set updatetime=128
+endif
 
 " SCROLL
 " Use Ctrl+Up and Ctrl+Down scroll a 30% of the screen up or down.
 function! ScrollQuarter(move)
     let height=winheight(0)
     if a:move == 'up'
-        let key="\<C-Y>"
+        let key='\<C-Y>'
     else
-        let key="\<C-E>"
+        let key='\<C-E>'
     endif
     execute 'normal! ' . height/3 . key
 endfunction
@@ -543,13 +545,13 @@ let NERDTreeChDirMode=2
 
 """ Ignore files.
 let g:NERDTreeIgnore=[
-    \ "\\.pyc$",
-    \ "\\.swo$",
-    \ "\\.swp$",
-    \ "\\.core$",
-    \ "\\.o$",
-    \ "^_del\\.",
-    \ "^\\.del\\."
+    \ '\\.pyc$',
+    \ '\\.swo$',
+    \ '\\.swp$',
+    \ '\\.core$',
+    \ '\\.o$',
+    \ '^_del\\.',
+    \ '^\\.del\\.'
 \]
 
 " On startup, always focus file window after startup.
@@ -570,13 +572,13 @@ nmap <C-b> :Bookmark<Space>
 " AUTOMATICALLY SYNC NERDTREE WITH OPENED FILE
 " NERDTreeIsOpen return true if NERDTree is opened.
 function! NERDTreeIsOpen()
-  return exists("t:NERDTreeBufName") && (bufwinnr(t:NERDTreeBufName) != -1)
+  return exists('t:NERDTreeBufName') && (bufwinnr(t:NERDTreeBufName) != -1)
 endfunction
 
 " NERDTreeSync call the NERDTreeTabsFind method.
 function! NERDTreeSync()
     " The path is not synchronized if the cursor is in the tagbar buffer.
-    let s:is_tagbar_buffer=stridx(expand("%"), "__Tagbar__")
+    let s:is_tagbar_buffer=stridx(expand('%'), '__Tagbar__')
 
     if &modifiable && NERDTreeIsOpen() && strlen(expand('%')) > 0 && !&diff
                 \ && s:is_tagbar_buffer < 0
@@ -588,10 +590,10 @@ function! NERDTreeSync()
             " Add information about current project name.
             let t:root=g:NERDTree.ForCurrentTab().getRoot().path.str()
             let s:root=fnamemodify(t:root, ':t')
-            let a:root=substitute(expand("%"), t:root . "/" , "", "")
-            "exec "set titlestring=". s:root .":\\ %-25.55F titlelen=79"
-            exec "set titlestring=". toupper(s:root) .":\\ \\ \\ ./". a:root
-                        \ ." titlelen=79"
+            let a:root=substitute(expand('%'), t:root . '/' , '', '')
+            """ exec 'set titlestring='. s:root .':\\ %-25.55F titlelen=79'
+            exec 'set titlestring='. toupper(s:root) .':\\ \\ \\ ./'. a:root
+                        \ .' titlelen=79'
         catch
         endtry
     endif
@@ -666,7 +668,7 @@ nmap <C-t> :call OpenBufExplorer()<CR>
 " neovim/Vim8. Next generation completion framework after neocomplcache.
 " DOC:
 "     https://github.com/Shougo/deoplete.nvim
-if has('nvim') || has("gui_running")
+if has('nvim') || has('gui_running')
     let g:deoplete#enable_at_startup=1
 endif
 
@@ -726,13 +728,13 @@ let g:multi_cursor_quit_key='<Esc>'
 
 " Fix bug with deoplete: https://github.com/Shougo/deoplete.nvim/issues/265
 function g:Multiple_cursors_before()
-    if has('nvim') || has("gui_running")
+    if has('nvim') || has('gui_running')
         call deoplete#custom#buffer_option('auto_complete', v:false)
     endif
 endfunction
 
 function g:Multiple_cursors_after()
-    if has('nvim') || has("gui_running")
+    if has('nvim') || has('gui_running')
         call deoplete#custom#buffer_option('auto_complete', v:true)
     endif
 endfunction
@@ -763,8 +765,8 @@ autocmd QuickFixCmdPost    l* nested lwindow
 " New GoLang development plugin for Vim.
 " DOC:
 "     https://github.com/govim/govim
-""" call govim#config#Set("Gofumpt", 1)
-""" call govim#config#Set("FormatOnSave", "goimports")
+""" call govim#config#Set('Gofumpt', 1)
+""" call govim#config#Set('FormatOnSave', 'goimports')
 
 
 "'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''"
@@ -781,27 +783,27 @@ if has('nvim')
 endif
 
 """ " Import management.
-""" let g:go_fmt_command="goimports"
+""" let g:go_fmt_command='goimports'
 
 " Controlling imports and formatting line lengths.
-let g:go_fmt_command="golines"
+let g:go_fmt_command='golines'
 let g:go_fmt_options={
     \ 'golines': '-m 79',
     \ }
 
 """ " The gofump fmt mode: https://github.com/mvdan/gofumpt#vim-go
-""" let g:go_fmt_command="gopls"
+""" let g:go_fmt_command='gopls'
 """ let g:go_gopls_gofumpt=1
 
 " Info mode.
-let g:go_info_mode = "guru"
+let g:go_info_mode = 'guru'
 let g:go_auto_type_info = 1
 
 let g:go_fmt_fail_silently=1
 let g:go_fmt_autosave=1 " automatic formatting when saving
 let g:go_doc_keywordprg_enabled=0
 
-"let g:go_list_type="quickfix" "bad work
+"let g:go_list_type='quickfix' "bad work
 "let g:go_autodetect_gopath=1
 "let g:go_gocode_unimported_packages=1
 
@@ -815,7 +817,7 @@ let g:go_highlight_function_calls=1
 " Activate linter.
 let g:go_metalinter_autosave = 1 " with autosave
 let g:go_metalinter_enabled = ['vet', 'golint', 'errcheck', 'test', 'testify']
-let g:go_metalinter_deadline = "3s"
+let g:go_metalinter_deadline = '3s'
 let g:go_metalinter_autosave_enabled = ['vet', 'golint', 'errcheck', 'test', 'testify']
 
 augroup go
@@ -844,12 +846,12 @@ function! ToggleTagbar()
     let g:tagbar_autofocus=0
 
     " Don't toggle tagbar if cursor is in tagbar or nerdtree buffers.
-    let s:is_tagbar_buffer=stridx(expand("%"), "__Tagbar__")
-    let s:is_nerdtree_buffer=stridx(expand("%"), "NERD_tree_")
+    let s:is_tagbar_buffer=stridx(expand('%'), '__Tagbar__')
+    let s:is_nerdtree_buffer=stridx(expand('%'), 'NERD_tree_')
     let b:initial_buffer=1
 
     if s:is_tagbar_buffer >=0 || s:is_nerdtree_buffer >=0
-        echomsg "You cannot run TagBar inside TagBar or NERDTree buffers!"
+        echomsg 'You cannot run TagBar inside TagBar or NERDTree buffers!'
     else
         TagbarToggle
     endif
@@ -924,7 +926,8 @@ let g:tagbar_type_typescript = {
 "'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''"
 " Reswap (reconnect the swap file) - it helps when working with files through
 " SSHFS, after crash.
-" USAGE: Shift+Q (Command Mode)
+" USAGE:
+"       Shift+Q
 function ReSwap()
     execute 'set noswapfile'
     execute 'set swapfile'
@@ -937,9 +940,23 @@ nmap <A-q> :call ReSwap()<CR>
 "'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''"
 "'' MATCHUP                                                                 ''"
 "'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''"
+" USAGE:
+"       %, [%, ]%, g% and z%
+"       Ctrl + Shift
+" DOC:
+"       https://github.com/andymass/vim-matchup
 " Search for a closing tag, parenthesis, or word under the crusor.
-" USAGE: g%, [%, ]%, and z%
 let g:loaded_matchit = 1
+let g:matchup_matchparen_offscreen = {'method': 'popup'} " 'status', 'status_manual', 'scrolloff'
+
+" The number of lines to search in either direction while highlighting matches.
+let g:matchup_matchparen_stopline = 512
+
+" Highlighting timeouts.
+let g:matchup_matchparen_timeout = 256
+let g:matchup_matchparen_insert_timeout = 64
+
+nnoremap <C-S-?> :<C-U>MatchupWhereAmI?<cr>
 augroup matchup_matchparen_highlight
     autocmd!
     autocmd ColorScheme * hi MatchParen    cterm=Bold gui=Bold  " ctermbg=LightCyan guibg=#181818 cterm=None gui=None
