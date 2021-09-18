@@ -64,7 +64,7 @@ Plugin 'valsorym/elzr-vim-json', {'name': 'vim-json'} " 'elzr/vim-json'
 Plugin 'valsorym/terryma-vim-multiple-cursors', {'name': 'vim-multiple-cursors'} " 'terryma/vim-multiple-cursors'
 
 Plugin 'valsorym/posva-vim-vue', {'name': 'vim-vue'} " 'posva/vim-vue'
-Plugin 'valsorym/fatih-vim-go', {'name': 'vim-go'} " 'fatih/vim-go'
+Plugin 'valsorym/fatih-vim-go', {'name': 'vim-go'} " 'fatih/vim-go' or 'govim/govim'
 Plugin 'valsorym/vim-scripts-grep.vim', {'name': 'grep.vim'} " 'vim-scripts/grep.vim'
 Plugin 'valsorym/preservim-tagbar', {'name': 'tagbar'} " 'preservim/tagbar'
 Plugin 'valsorym/herringtondarkholme-yats.vim', {'name': 'yats.vim'} " 'herringtondarkholme/yats.vim'
@@ -522,6 +522,7 @@ imap <C-x> <Esc>:TrimSpaces<CR>
 nmap <C-x> :TrimSpaces<CR>
 nmap <A-x> :TrimSpaces<CR>
 
+
 "'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''"
 "'' NERDTREE / NERDTREE-TABS                                                ''"
 "'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''"
@@ -623,6 +624,7 @@ endfunction
 "" nmap <silent> <F9> <plug>NERDTreeTabsToggle<CR>
 nmap <silent> <F9> :call NERDTreeSmartOpen()<CR>
 
+
 "'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''"
 "'' BUFEXPLORER                                                             ''"
 "'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''"
@@ -661,6 +663,7 @@ endfunction
 imap <C-t> <Esc> :call OpenBufExplorer()<CR>
 nmap <C-t> :call OpenBufExplorer()<CR>
 
+
 "'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''"
 "'' DEOPLETE                                                                ''"
 "'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''"
@@ -671,6 +674,7 @@ nmap <C-t> :call OpenBufExplorer()<CR>
 if has('nvim') || has("gui_running")
     let g:deoplete#enable_at_startup=1
 endif
+
 
 "'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''"
 "'' COLORIZER                                                               ''"
@@ -684,6 +688,7 @@ endif
 
 " Key mapping.
 nmap <A-i> :ColorToggle<CR>
+
 
 "'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''"
 "'' MOVE                                                                    ''"
@@ -699,6 +704,7 @@ let g:move_key_modifier='S'
 
 " Do not change of the moved block.
 let g:move_auto_indent=0
+
 
 "'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''"
 "'' MULTIPLE CURSORS                                                        ''"
@@ -736,6 +742,7 @@ function g:Multiple_cursors_after()
     endif
 endfunction
 
+
 "'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''"
 "'' JSON                                                                    ''"
 "'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''"
@@ -754,33 +761,59 @@ autocmd FileType typescript setlocal formatprg=prettier\ --parser\ typescript
 autocmd QuickFixCmdPost [^l]* nested cwindow
 autocmd QuickFixCmdPost    l* nested lwindow
 
+
 "'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''"
-"'' GOLANG                                                                  ''"
+"'' GOVIM                                                                   ''"
+"'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''"
+" New GoLang development plugin for Vim.
+" DOC:
+"     https://github.com/govim/govim
+""" call govim#config#Set("Gofumpt", 1)
+""" call govim#config#Set("FormatOnSave", "goimports")
+
+
+"'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''"
+"'' VIM-GO                                                                  ''"
 "'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''"
 " GoLang development plugin for Vim.
 " USAGE: (only for .go files)
 "     Ctrl+f - run go fmt.
 " DOC:
 "     https://github.com/fatih/vim-go
-let g:go_fmt_command="goimports"
-""" let g:go_fmt_command="golines"
-""" let g:go_fmt_options={
-"""     \ 'golines': '-m 79',
-"""     \ }
+""" " Import management.
+""" let g:go_fmt_command="goimports"
+
+" Controlling imports and formatting line lengths.
+let g:go_fmt_command="golines"
+let g:go_fmt_options={
+    \ 'golines': '-m 79',
+    \ }
+
+""" " The gofump fmt mode: https://github.com/mvdan/gofumpt#vim-go
+""" let g:go_fmt_command="gopls"
+""" let g:go_gopls_gofumpt=1
+
 let g:go_fmt_fail_silently=1
 let g:go_fmt_autosave=1 " automatic formatting when saving
 let g:go_doc_keywordprg_enabled=0
 
+let g:go_auto_type_info = 1
+let g:go_list_type="quickfix"
+let g:go_autodetect_gopath=1
+let g:go_gocode_unimported_packages=1
 
-"let g:go_list_type="quickfix"
-"let g:go_autodetect_gopath=1
 let g:go_highlight_types=1
 let g:go_highlight_fields=1
 let g:go_highlight_functions=1
 let g:go_highlight_extra_types=1
 let g:go_highlight_generate_tags=1
 let g:go_highlight_function_calls=1
-"let g:go_gocode_unimported_packages=1
+
+" Activate linter.
+let g:go_metalinter_autosave = 0 " not autosave
+let g:go_metalinter_enabled = ['vet', 'golint', 'errcheck', 'test', 'testify']
+let g:go_metalinter_deadline = "3s"
+let g:go_metalinter_autosave_enabled = ['vet', 'golint', 'errcheck', 'test', 'testify']
 
 augroup go
     autocmd!
@@ -788,9 +821,10 @@ augroup go
     autocmd BufNewFile,BufRead *.go setlocal noexpandtab tabstop=4 shiftwidth=4
 
     " Key mapping.
-    " Run GoFmt.
-    autocmd FileType go nmap <C-f> <Esc>:GoFmt<CR>
+    autocmd FileType go nmap <C-A-f> <Esc>:GoFmt<CR>          " run fmt
+    autocmd FileType go nmap <C-A-l> <Esc>:GoMetaLinter<CR>   " run linter
 augroup END
+
 
 "'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''"
 "'' TAGBAR                                                                  ''"
@@ -880,6 +914,7 @@ let g:tagbar_type_typescript = {
   \ ],
   \ 'sort' : 0
 \ }
+
 
 "'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''"
 "'' RESWAP                                                                  ''"
