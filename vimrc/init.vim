@@ -88,7 +88,6 @@ filetype plugin indent on
 "'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''"
 "'' MAIN                                                                    ''"
 "'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''"
-
 " BACKUP AND SWAP FILES
 set backup
 set undodir=/tmp//
@@ -174,6 +173,7 @@ if $TERM != 'xterm-256color'
     endfunction
 endif
 """ colorscheme absent-contrast " rainglow/vim
+
 
 "'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''"
 "'' EDITOR                                                                  ''"
@@ -293,6 +293,13 @@ imap <C-Up> <Esc>:call ScrollQuarter('up')<CR>
 nmap <C-Up> :call ScrollQuarter('up')<CR>
 imap <C-Down> <Esc>:call ScrollQuarter('down')<CR>
 nmap <C-Down> :call ScrollQuarter('down')<CR>
+
+" MOUSE
+" Left Mouse Click.
+" To change for a specific file, for example GoLang filetype:
+"     autocmd FileType go nmap <buffer> <C-LeftMouse> :<C-u>call go#def#Jump("tab", 0)<CR>
+nnoremap <silent> <C-LeftMouse> <LeftMouse>:echom 'Undefined...'<CR>
+
 
 "'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''"
 "'' FILE ASSOCIATION                                                        ''"
@@ -774,7 +781,11 @@ autocmd QuickFixCmdPost    l* nested lwindow
 "'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''"
 " GoLang development plugin for Vim.
 " USAGE: (only for .go files)
-"     Ctrl+f - run go fmt.
+"     Ctrl+Alt+f - run gofmt;
+"     Ctrl+Alt+l - run linters;
+"     Ctrl+Alt+j - jump to definition (in new tab);
+"     Ctrl+Alt+d - open go-doc;
+"     Ctrl+Alt+i - show info about object.
 " DOC:
 "     https://github.com/fatih/vim-go
 " Old version NeoVim and Vim.
@@ -782,31 +793,29 @@ if has('nvim')
     let g:go_version_warning=0
 endif
 
-""" " Import management.
-""" let g:go_fmt_command='goimports'
+" Fmt.
+""" " The gofump fmt mode: https://github.com/mvdan/gofumpt#vim-go
+""" " Note: Poorly organized import list.
+""" let g:go_fmt_command='gopls'
+""" let g:go_gopls_gofumpt=1
+let g:go_fmt_autosave=1 " automatic formatting when saving
+let g:go_fmt_fail_silently=1
 
-" Controlling imports and formatting line lengths.
-let g:go_fmt_command='golines'
+""" let g:go_fmt_command='goimports' " classical goimports
+let g:go_fmt_command='golines' " controlling imports and formatting line len
 let g:go_fmt_options={
     \ 'golines': '-m 79',
     \ }
 
-""" " The gofump fmt mode: https://github.com/mvdan/gofumpt#vim-go
-""" let g:go_fmt_command='gopls'
-""" let g:go_gopls_gofumpt=1
-
 " Info mode.
+" Automatic display of information about the object.
 let g:go_info_mode = 'guru'
-let g:go_auto_type_info = 1
+let g:go_auto_type_info = 1 " set 1 to activate auto detect.
 
-let g:go_fmt_fail_silently=1
-let g:go_fmt_autosave=1 " automatic formatting when saving
-let g:go_doc_keywordprg_enabled=0
+" Go doc.
+let g:go_doc_keywordprg_enabled=1
 
-"let g:go_list_type='quickfix' "bad work
-"let g:go_autodetect_gopath=1
-"let g:go_gocode_unimported_packages=1
-
+" Highlight.
 let g:go_highlight_types=1
 let g:go_highlight_fields=1
 let g:go_highlight_functions=1
@@ -815,7 +824,7 @@ let g:go_highlight_generate_tags=1
 let g:go_highlight_function_calls=1
 
 " Activate linter.
-let g:go_metalinter_autosave = 1 " with autosave
+let g:go_metalinter_autosave = 0 " set 1 to activet autosave
 let g:go_metalinter_enabled = ['vet', 'golint', 'errcheck', 'test', 'testify']
 let g:go_metalinter_deadline = '3s'
 let g:go_metalinter_autosave_enabled = ['vet', 'golint', 'errcheck', 'test', 'testify']
@@ -826,8 +835,26 @@ augroup go
     autocmd BufNewFile,BufRead *.go setlocal noexpandtab tabstop=4 shiftwidth=4
 
     " Key mapping.
-    autocmd FileType go nmap <C-A-f> <Esc>:GoFmt<CR>          " run fmt
-    autocmd FileType go nmap <C-A-l> <Esc>:GoMetaLinter<CR>   " run linter
+    " Run fmt: Ctrl+Alt+f
+    autocmd FileType go nmap <buffer> <C-A-f> <Esc>:GoFmt<CR>
+
+    " Run linter: Ctrl+Alt+l
+    autocmd FileType go nmap <buffer> <C-A-l> <Esc>:GoMetaLinter<CR>
+
+    " Run go-doc: Ctrl+Alt+d
+    autocmd FileType go nmap <buffer> <C-A-d> <Esc>:GoDoc<CR>
+
+    " Run info: Ctrl+Alt+i
+    autocmd FileType go nmap <buffer> <C-A-i> <Esc>:GoInfo<CR>
+
+    " Jump to definition: Ctrl+Alt+j.
+    " Use go-def-tab to open new tab with definition.
+    """ " To stop for Ctrl+ Mouse Left Click
+    """ let g:go_def_mapping_enabled=0
+    """ autocmd FileType go nmap <buffer> <C-LeftMouse> :echom 'Jump to definition: Ctrl+Alt+d'<CR>
+    let g:go_def_mapping_enabled=1
+    autocmd FileType go nmap <buffer> <C-LeftMouse> :<C-u>call go#def#Jump("tab", 0)<CR>
+    autocmd FileType go nmap <buffer> <C-A-j> <Plug>(go-def-tab)
 augroup END
 
 
