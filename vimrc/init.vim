@@ -73,6 +73,8 @@ Plugin 'valsorym/maxmellon-vim-jsx-pretty', {'name': 'vim-jsx-pretty'} " 'maxmel
 
 Plugin 'valsorym/vim-matchup', {'name': 'vim-matchup'} " 'andymass/vim-matchup'
 
+Plugin 'shmup/vim-sql-syntax' , {'name': 'vim-sql-syntax'}
+
 call vundle#end()
 filetype plugin indent on
 
@@ -322,6 +324,7 @@ autocmd BufNewFile,BufRead *.gql set filetype=graphql
 autocmd BufNewFile,BufRead *.graphql set filetype=graphql
 autocmd BufNewFile,BufRead *.proto set filetype=proto
 autocmd BufNewFile,BufRead *.cfg set filetype=haproxy
+autocmd BufNewFile,BufRead *.sql set filetype=sql
 autocmd BufRead,BufNewFile */nginx/*.conf if &ft == '' | setfiletype nginx | endif
 
 " ... for typescript and html/css files is recommended to set 2 spaces.
@@ -345,6 +348,7 @@ autocmd FileType graphql setlocal expandtab shiftwidth=4 softtabstop=4
 autocmd FileType proto setlocal expandtab shiftwidth=4 softtabstop=4
 autocmd FileType haproxy setlocal expandtab shiftwidth=4 softtabstop=4
 autocmd FileType nginx setlocal expandtab shiftwidth=4 softtabstop=4
+autocmd FileType sql setlocal shiftwidth=4 tabstop=4
 
 
 " TypeScript: see TYPESCRIPT PLUGIN section
