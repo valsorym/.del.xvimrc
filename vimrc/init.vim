@@ -262,7 +262,8 @@ set autoindent
 set indentexpr=''
 
 " SPECIAL CHAR SETTINGS
-"  Display wildcards: tabs and spaces at the end.
+" Display wildcards: tabs and spaces at the end.
+" Examples: ⦙·, ·, ↪\, →\, ↲, ␣, •, ⟩, ⟨
 set list listchars=tab:»·,trail:·
 
 " FILE SETTINGS
@@ -325,11 +326,20 @@ autocmd BufNewFile,BufRead *.graphql set filetype=graphql
 autocmd BufNewFile,BufRead *.proto set filetype=proto
 autocmd BufNewFile,BufRead *.cfg set filetype=haproxy
 autocmd BufNewFile,BufRead *.sql set filetype=sql
+autocmd BufNewFile,BufRead *.yaml set filetype=yaml
 autocmd BufRead,BufNewFile */nginx/*.conf if &ft == '' | setfiletype nginx | endif
 
 " ... for typescript and html/css files is recommended to set 2 spaces.
+" - tabstop answers the question: how many columns of whitespace
+"   is a \t char worth? Think of a set of vertical lines running down
+"   the length of your paper.
+" - shiftwidth answers the question: how many columns of whitespace
+"   a “level of indentation” is worth?
+" - softtabstop answers the question: how many columns of whitespace is
+"   a tab keypress or a backspace keypress worth?
+" - expandtab means that you never wanna see a \t again in your
+"   file — rather, tabs keypresses will be expanded into spaces.
 autocmd FileType json setlocal shiftwidth=4 tabstop=4
-autocmd FileType yaml setlocal shiftwidth=4 tabstop=4
 autocmd FileType html setlocal shiftwidth=4 tabstop=4
 autocmd FileType gotplhtml setlocal shiftwidth=4 tabstop=4
 autocmd FileType html.tornadotmpl setlocal shiftwidth=4 tabstop=4
@@ -349,6 +359,7 @@ autocmd FileType proto setlocal expandtab shiftwidth=4 softtabstop=4
 autocmd FileType haproxy setlocal expandtab shiftwidth=4 softtabstop=4
 autocmd FileType nginx setlocal expandtab shiftwidth=4 softtabstop=4
 autocmd FileType sql setlocal shiftwidth=4 tabstop=4
+autocmd FileType yaml setlocal expandtab tabstop=2 softtabstop=2 shiftwidth=2
 
 
 " TypeScript: see TYPESCRIPT PLUGIN section
