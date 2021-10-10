@@ -112,8 +112,8 @@ P.P.s. Install the `vim-gtk` package, and use `select-editor` to select the `vim
   
 ### Flexible editing.
 
-- `S-j` - move current line/selections down;
-- `S-k` - move current line/selections up;
+- `C-j` - move current line/selections down;
+- `C-k` - move current line/selections up;
 - `S-f` - set multiple cursor mode / the allocation of the next word under the cursor, and:
   - During the search:
     - `S-b` - the allocation of the previous word under the cursor;

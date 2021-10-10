@@ -505,10 +505,10 @@ nmap <C-h> :call MoveTabFirst()<CR>
 imap <C-l> <Esc>:call MoveTabLast()<CR>
 nmap <C-l> :call MoveTabLast()<CR>
 
-" OPEN FIRST TAB
-" USAGE: Ctrl+z
-imap <C-z> <Esc>:call OpenFirstTab()<CR>
-nmap <C-z> :call OpenFirstTab()<CR>
+"" " OPEN FIRST TAB
+"" " USAGE: Ctrl+z
+"" imap <C-z> <Esc>:call OpenFirstTab()<CR>
+"" nmap <C-z> :call OpenFirstTab()<CR>
 
 " TAB STYLE
 " 0. Short tabs - only filename.
@@ -720,22 +720,6 @@ nmap <A-i> :ColorToggle<CR>
 
 
 "'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''"
-"'' MOVE                                                                    ''"
-"'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''"
-" USAGE:
-"     Shift-k - move current line/selections up;
-"     Shift-j - move current line/selections down.
-" DOC:
-"     https://github.com/matze/vim-move
-
-" Key mapping.
-let g:move_key_modifier='S'
-
-" Do not change of the moved block.
-let g:move_auto_indent=0
-
-
-"'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''"
 "'' MULTIPLE CURSORS                                                        ''"
 "'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''"
 " USAGE:
@@ -854,6 +838,9 @@ let g:go_metalinter_enabled = ['vet', 'golint', 'errcheck', 'test', 'testify']
 let g:go_metalinter_deadline = '3s'
 let g:go_metalinter_autosave_enabled = ['vet', 'golint', 'errcheck', 'test', 'testify']
 
+" Stop default mapping.
+let g:go_def_mapping_enabled=0
+
 augroup go
     autocmd!
     " Customization .go files: show by default 4 spaces for a tab.
@@ -877,7 +864,6 @@ augroup go
     """ " To stop for Ctrl+ Mouse Left Click
     """ let g:go_def_mapping_enabled=0
     """ autocmd FileType go nmap <buffer> <C-LeftMouse> :echom 'Jump to definition: Ctrl+Alt+d'<CR>
-    let g:go_def_mapping_enabled=1
     autocmd FileType go nmap <buffer> <C-LeftMouse> :<C-u>call go#def#Jump("tab", 0)<CR>
     autocmd FileType go nmap <buffer> <C-A-j> <Plug>(go-def-tab)
 augroup END
@@ -1016,3 +1002,20 @@ augroup matchup_matchparen_highlight
     autocmd ColorScheme * hi MatchParenCur cterm=Bold gui=Bold  " ctermbg=LightCyan guibg=#181818 cterm=None gui=None
     autocmd ColorScheme * hi MatchWordCur  cterm=Bold gui=Bold  " ctermbg=LightCyan guibg=#181818 cterm=None gui=None
 augroup END
+
+
+"'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''"
+"'' MOVE LINES/BLOCKS                                                       ''"
+"'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''"
+" USAGE:
+"     Ctrl-k - move current line/selections up;
+"     Ctrl-j - move current line/selections down.
+" DOC:
+"     https://github.com/matze/vim-move
+
+" Key mapping.
+let g:move_key_modifier='C'
+
+" Do not change of the moved block.
+let g:move_auto_indent=0
+
