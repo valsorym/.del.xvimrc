@@ -77,6 +77,7 @@ Plugin 'valsorym/yuezk-vim-js', {'name': 'vim-js'} " 'yuezk/vim-js'
 Plugin 'valsorym/maxmellon-vim-jsx-pretty', {'name': 'vim-jsx-pretty'} " 'maxmellon/vim-jsx-pretty'
 
 Plugin 'valsorym/vim-matchup', {'name': 'vim-matchup'} " 'andymass/vim-matchup'
+Plugin 'valsorym/obcat-vim-sclow', {'name': 'vim-sclow'} " 'obcat/vim-sclow'
 
 call vundle#end()
 filetype plugin indent on
@@ -540,7 +541,7 @@ endif " autocmd
 "'' CLEAR DEBRIS                                                            ''"
 "'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''"
 " Remove trailing blanks.
-" USAGE: <A-x>, a
+" USAGE: <C-x>, a
 " DOC:
 "     https://github.com/valsorym/vim-clear
 "
@@ -1018,4 +1019,18 @@ let g:move_key_modifier='C'
 
 " Do not change of the moved block.
 let g:move_auto_indent=0
+
+
+"'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''"
+"'' SCROLLBAR                                                               ''"
+"'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''"
+" DOC:
+"     https://github.com/obcat/vim-sclow
+let g:sclow_block_filetypes=['netrw', 'nerdtree']
+let g:sclow_block_buftypes=['terminal', 'prompt']
+let g:sclow_bar_right_offset=-1
+let g:sclow_hide_full_length=1
+
+let g:sclow_sbar_text="\<Space>"
+highlight SclowSbar ctermbg=NONE guibg=NONE
 

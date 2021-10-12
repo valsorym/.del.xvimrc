@@ -17,7 +17,10 @@ Required parameters:
 ## Packages
 
 Configurations include the installation of the *forks* of following packages:
-
+- [valsorym/vim-tabs](https://github.com/valsorym/vim-tabs) - The vim plugin that allows you to comfortably manage of the tabs;
+- [valsorym/vim-clear](https://github.com/valsorym/vim-clear) - The plugin allows you to quickly search the not desired characters and remove them;
+- [valsorym/vim-highlighting](https://github.com/valsorym/vim-highlighting) - Syntax highlighting in files: go; python/cython; c/cpp; django, jinja2 and tornado templates; html5; css3; less; scss;
+- [valsorym/vim-code-theme](https://github.com/valsorym/vim-code-theme) - Nice dark theme for the vim/neovim;
 - [rainglow/vim](https://github.com/rainglow/vim) - 320+ color themes for VIM;
 - [scrooloose/nerdtree](https://github.com/scrooloose/nerdtree) - A tree explorer plugin for vim;
 - [jistr/vim-nerdtree-tabs](https://github.com/jistr/vim-nerdtree-tabs) - NERDTree and tabs together in Vim, painlessly;
@@ -37,6 +40,7 @@ Configurations include the installation of the *forks* of following packages:
 - [yuezk/vim-js](https://github.com/yuezk/vim-js) - The most accurate syntax highlighting plugin for JavaScript and Flow.js;
 - [maxmellon/vim-jsx-pretty](https://github.com/maxmellon/vim-jsx-pretty) - JSX and TSX syntax pretty highlighting for vim;
 - [andymass/vim-matchup](https://github.com/andymass/vim-matchup) - Navigate and highlight matching words;
+- [obcat/vim-sclow](https://github.com/obcat/vim-sclow) - Text-based scrollbar for Vim.
 
 ## Quick Start
 
