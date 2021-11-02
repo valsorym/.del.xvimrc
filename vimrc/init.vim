@@ -15,6 +15,30 @@
 "'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''"
 
 "'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''"
+"'' SYSTEM                                                                  ''"
+"'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''"
+" Varable prefix:
+"   buffer-variable    b:     Local to the current buffer.                          
+"   window-variable    w:     Local to the current window.                          
+"   tabpage-variable   t:     Local to the current tab page.                        
+"   global-variable    g:     Global.                                               
+"   local-variable     l:     Local to a function.                                  
+"   script-variable    s:     Local to a :source'ed Vim script.                     
+"   function-argument  a:     Function argument (only inside a function).           
+"   vim-variable       v:     Global, predefined by Vim.
+"
+" - use the rule to declare new variables.
+
+
+" Debug prints message in ~/.vimdebug.tmp file.
+" Usage:
+"   call s:Debug("Some text for print here...")
+function! s:Debug(message) abort
+  silent execute '!echo '.a:message.' >> ~/.vimdebug.tmp'
+endfunction
+
+
+"'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''"
 "'' MAIN                                                                    ''"
 "'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''"
 set shell=/bin/bash
@@ -226,7 +250,8 @@ set numberwidth=5
 " TITLE SETTINGS
 " Custom title style.
 set title
-set titlestring=VIM:\ %-25.55F titlelen=70
+"set titlestring=VIM:\ %-25.55F titlelen=70
+set titlestring=NEW\ FILE titlelen=70
 
 " STATUSBAR SETTINGS
 " Show pressed keys in normal mode.
@@ -618,30 +643,58 @@ endfunction
 
 " NERDTreeSync call the NERDTreeTabsFind method.
 function! NERDTreeSync()
-    " The path is not synchronized if the cursor is in the tagbar buffer.
-    let s:is_tagbar_buffer=stridx(expand('%'), '__Tagbar__')
+    " The path is not synchronized if the cursor is in the Tagbar or
+    " NERDTree buffers.
+    let s:is_file_buffer=strlen(expand('%')) > 0 " has title
+    let s:is_tagbar_buffer=stridx(expand('%'), '__Tagbar__') == 0
+    let s:is_nerdtree_buffer=stridx(expand('%'), 'NERD_tree_') == 0
 
-    if &modifiable && NERDTreeIsOpen() && strlen(expand('%')) > 0 && !&diff
-                \ && s:is_tagbar_buffer < 0
+    if &modifiable && NERDTreeIsOpen() && !&diff 
+                \ && s:is_file_buffer && !s:is_tagbar_buffer 
+                \ && !s:is_nerdtree_buffer
         try
             NERDTreeTabsFind
             wincmd p
 
-            " Update window's title.
+            " Update title of the GUI-window.
             " Add information about current project name.
-            let t:root=g:NERDTree.ForCurrentTab().getRoot().path.str()
-            let s:root=fnamemodify(t:root, ':t')
-            let a:root=substitute(expand('%'), t:root . '/' , '', '')
-            """ exec 'set titlestring='. s:root .':\\ %-25.55F titlelen=79'
-            exec 'set titlestring='. toupper(s:root) .':\\ \\ \\ ./'. a:root
-                        \ .' titlelen=79'
+            let s:project_path=g:NERDTree.ForCurrentTab().getRoot().path.str()
+            let s:project_name=fnamemodify(s:project_path, ':t')
+            let s:file_name=expand('%:t')
+            let s:file_path=substitute(@%, s:file_name, '', '')
+            let s:file_path_len=strlen(s:file_path)
+            let s:file_path_max_len=16
+            let s:title=toupper(s:project_name) . '\ →\ ' . s:file_name
+
+            " Add path for file if pathe exists.
+            if s:file_path_len > 0 && strpart(s:file_path, 0, 1) != '/'
+                " Shorten the path and replace long prefix with
+                " three dots if path for file too long. 
+                if s:file_path_len > s:file_path_max_len + 1
+                    let s:path='...'. strpart(
+                                \ s:file_path,
+                                \ s:file_path_len-s:file_path_max_len,
+                                \ s:file_path_max_len-1)
+                else
+                    let s:path=strpart(s:file_path, 0, s:file_path_len-1)
+                endif
+
+                let s:title=toupper(s:project_name) . '\ →\ ' . s:path 
+                            \ . '\ →\ ' . s:file_name 
+            endif
+
+            """ call s:Debug('Title:' . s:title . ', File path: ' . s:file_path)
+            exec 'set titlestring=' . s:title . ' titlelen=79'
         catch
         endtry
     endif
 endfunction
 
 " Auto sync.
+" - BufEnter when the buffer receives focus;
+" - BufWritePost after saving the buffer.
 autocmd BufEnter * call NERDTreeSync()
+autocmd BufWritePost * call NERDTreeSync()
 
 " OPEN/CLOSE NERDTREE
 " NERDTreeSmartOpen smart open NERDTree.
@@ -1052,4 +1105,5 @@ else
     let g:sclow_sbar_text="\<Space>"
     highlight SclowSbar ctermbg=NONE guibg=NONE
 endif
+
 
