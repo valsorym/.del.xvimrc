@@ -77,7 +77,15 @@ Plugin 'valsorym/yuezk-vim-js', {'name': 'vim-js'} " 'yuezk/vim-js'
 Plugin 'valsorym/maxmellon-vim-jsx-pretty', {'name': 'vim-jsx-pretty'} " 'maxmellon/vim-jsx-pretty'
 
 Plugin 'valsorym/vim-matchup', {'name': 'vim-matchup'} " 'andymass/vim-matchup'
-Plugin 'valsorym/obcat-vim-sclow', {'name': 'vim-sclow'} " 'obcat/vim-sclow'
+if has('nvim')
+    " Not supported in VIM.
+    "" " Scrollbar.
+    "" Plugin 'Xuyuanp/scrollbar.nvim', {'name': 'scrollbar.nvim'} " 'Xuyuanp/scrollbar.nvim'
+else
+    " Not supported in NeoVIM.
+    " Scrollbar.
+    Plugin 'valsorym/obcat-vim-sclow', {'name': 'vim-sclow'} " 'obcat/vim-sclow'
+endif
 
 call vundle#end()
 filetype plugin indent on
@@ -343,15 +351,15 @@ autocmd BufRead,BufNewFile */nginx/*.conf if &ft == '' | setfiletype nginx | end
 "   a tab keypress or a backspace keypress worth?
 " - expandtab means that you never wanna see a \t again in your
 "   file — rather, tabs keypresses will be expanded into spaces.
-autocmd FileType json setlocal shiftwidth=4 tabstop=4
-autocmd FileType html setlocal shiftwidth=4 tabstop=4
+autocmd FileType json setlocal expandtab tabstop=2 softtabstop=2 shiftwidth=2
+autocmd FileType html setlocal expandtab tabstop=4 softtabstop=4 shiftwidth=4
 autocmd FileType gotplhtml setlocal shiftwidth=4 tabstop=4
 autocmd FileType html.tornadotmpl setlocal shiftwidth=4 tabstop=4
 autocmd FileType htmldjango setlocal shiftwidth=4 tabstop=4
 autocmd FileType jinja setlocal shiftwidth=4 tabstop=4
-autocmd FileType scss setlocal shiftwidth=4 tabstop=4
+autocmd FileType scss setlocal expandtab tabstop=4 softtabstop=4 shiftwidth=4
 autocmd FileType css setlocal shiftwidth=4 tabstop=4
-autocmd FileType typescript setlocal shiftwidth=4 tabstop=4
+autocmd FileType typescript setlocal expandtab tabstop=2 softtabstop=2 shiftwidth=2
 autocmd FileType javascript setlocal shiftwidth=4 tabstop=4
 autocmd FileType python setlocal expandtab shiftwidth=4 softtabstop=4
 autocmd FileType sh setlocal shiftwidth=4 tabstop=4
@@ -1024,13 +1032,24 @@ let g:move_auto_indent=0
 "'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''"
 "'' SCROLLBAR                                                               ''"
 "'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''"
-" DOC:
-"     https://github.com/obcat/vim-sclow
-let g:sclow_block_filetypes=['netrw', 'nerdtree']
-let g:sclow_block_buftypes=['terminal', 'prompt']
-let g:sclow_bar_right_offset=-1
-let g:sclow_hide_full_length=1
-
-let g:sclow_sbar_text="\<Space>"
-highlight SclowSbar ctermbg=NONE guibg=NONE
+if has('nvim')
+    "" " DOC:
+    "" "     https://github.com/Xuyuanp/scrollbar.nvim
+    "" augroup ScrollbarInit
+    ""   autocmd!
+    ""   autocmd CursorMoved,VimResized,QuitPre * silent! lua require('scrollbar').show()
+    ""   autocmd WinEnter,FocusGained * silent! lua require('scrollbar').show()
+    ""   autocmd WinLeave,BufLeave,BufWinLeave,FocusLost * silent! lua require('scrollbar').clear()
+    "" augroup end
+else
+    " DOC:
+    "     https://github.com/obcat/vim-sclow
+    let g:sclow_block_filetypes=['netrw', 'nerdtree']
+    let g:sclow_block_buftypes=['terminal', 'prompt']
+    let g:sclow_bar_right_offset=-1
+    let g:sclow_hide_full_length=1
+    
+    let g:sclow_sbar_text="\<Space>"
+    highlight SclowSbar ctermbg=NONE guibg=NONE
+endif
 
