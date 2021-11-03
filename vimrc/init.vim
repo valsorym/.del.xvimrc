@@ -18,13 +18,13 @@
 "'' SYSTEM                                                                  ''"
 "'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''"
 " Varable prefix:
-"   buffer-variable    b:     Local to the current buffer.                          
-"   window-variable    w:     Local to the current window.                          
-"   tabpage-variable   t:     Local to the current tab page.                        
-"   global-variable    g:     Global.                                               
-"   local-variable     l:     Local to a function.                                  
-"   script-variable    s:     Local to a :source'ed Vim script.                     
-"   function-argument  a:     Function argument (only inside a function).           
+"   buffer-variable    b:     Local to the current buffer.
+"   window-variable    w:     Local to the current window.
+"   tabpage-variable   t:     Local to the current tab page.
+"   global-variable    g:     Global.
+"   local-variable     l:     Local to a function.
+"   script-variable    s:     Local to a :source'ed Vim script.
+"   function-argument  a:     Function argument (only inside a function).
 "   vim-variable       v:     Global, predefined by Vim.
 "
 " - use the rule to declare new variables.
@@ -253,17 +253,17 @@ set numberwidth=5
 set title
 set titlestring=EDITOR titlelen=70
 """ set titlestring=VIM:\ %-25.55F titlelen=70
-""" 
+"""
 """ " BufEnterSync change titlestring.
 """ function! BufEnterSync()
 """     let s:is_file_buffer=strlen(expand('%')) > 0 " has title
 """     let s:is_tagbar_buffer=stridx(expand('%'), '__Tagbar__') == 0
 """     let s:is_nerdtree_buffer=stridx(expand('%'), 'NERD_tree_') == 0
-""" 
+"""
 """     if !s:is_file_buffer || s:is_tagbar_buffer || s:is_nerdtree_buffer
 """         let s:title='Vim'
 """         if has('nvim')
-"""             let s:title='Neovim'    
+"""             let s:title='Neovim'
 """         endif
 """         exec 'set titlestring=' . s:title . ' titlelen=79'
 """     endif
@@ -670,8 +670,8 @@ function! NERDTreeSync()
     let s:is_tagbar_buffer=stridx(expand('%'), '__Tagbar__') == 0
     let s:is_nerdtree_buffer=stridx(expand('%'), 'NERD_tree_') == 0
 
-    if &modifiable && NERDTreeIsOpen() && !&diff 
-                \ && s:is_file_buffer && !s:is_tagbar_buffer 
+    if &modifiable && NERDTreeIsOpen() && !&diff
+                \ && s:is_file_buffer && !s:is_tagbar_buffer
                 \ && !s:is_nerdtree_buffer
         try
             NERDTreeTabsFind
@@ -690,7 +690,7 @@ function! NERDTreeSync()
             " Add path for file if pathe exists.
             if s:file_path_len > 0 && strpart(s:file_path, 0, 1) != '/'
                 " Shorten the path and replace long prefix with
-                " three dots if path for file too long. 
+                " three dots if path for file too long.
                 if s:file_path_len > s:file_path_max_len + 1
                     let s:path='...'. strpart(
                                 \ s:file_path,
@@ -700,8 +700,8 @@ function! NERDTreeSync()
                     let s:path=strpart(s:file_path, 0, s:file_path_len-1)
                 endif
 
-                let s:title=toupper(s:project_name) . '\ →\ ' . s:path 
-                            \ . '\ →\ ' . s:file_name 
+                let s:title=toupper(s:project_name) . '\ →\ ' . s:path
+                            \ . '\ →\ ' . s:file_name
             endif
 
             """ call s:Debug('Title:' . s:title . ', File path: ' . s:file_path)
@@ -714,8 +714,17 @@ endfunction
 " Auto sync.
 " - BufEnter when the buffer receives focus;
 " - BufWritePost after saving the buffer.
-autocmd BufEnter * call NERDTreeSync()
-autocmd BufWritePost * call NERDTreeSync()
+augroup autocmdNERDTreeSync
+    " Sometimes, it works twice and file selection in NERDTree 'jumps' randomly.
+    " Need to use sync delay.
+    "" autocmd BufEnter * :call NERDTreeSync()
+    "" autocmd BufWritePost * :call NERDTreeSync()
+    autocmd!
+    autocmd BufEnter * :call timer_start(
+                \ 500, {-> execute('call NERDTreeSync()', '')}, {'repeat':1})
+    autocmd BufWritePost * :call timer_start(
+                \ 500, {-> execute('call NERDTreeSync()', '')}, {'repeat':1})
+augroup END
 
 " OPEN/CLOSE NERDTREE
 " NERDTreeSmartOpen smart open NERDTree.
@@ -1117,7 +1126,7 @@ else
     let g:sclow_block_buftypes=['terminal', 'prompt']
     let g:sclow_bar_right_offset=-1
     let g:sclow_hide_full_length=1
-    
+
     let g:sclow_sbar_text="\<Space>"
     highlight SclowSbar ctermbg=NONE guibg=NONE
 endif
