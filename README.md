@@ -73,8 +73,8 @@ make nvim
 - `F12` - show/hide row numbers line;
 - `C-o` - open file;
 - `C-w`, `<-` or `->` - choose window;
-- `C-u` - undo (don't use just the `u` for undo);
-- `C-r` - redo;
+- `C-A-u` - undo (don't use just the `u` for undo);
+- `C-A-r` - redo;
 - `A-q` - reconnect the swap file - it helps when working with files through SSHFS, after crash;
 - `A-i` - color highlight toggle;
 - `C-x`, `a` - remove trailing blanks;

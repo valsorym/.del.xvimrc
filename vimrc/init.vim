@@ -104,7 +104,7 @@ Plugin 'valsorym/vim-matchup', {'name': 'vim-matchup'} " 'andymass/vim-matchup'
 if has('nvim')
     " Not supported in VIM.
     "" " Scrollbar.
-    "" Plugin 'Xuyuanp/scrollbar.nvim', {'name': 'scrollbar.nvim'} " 'Xuyuanp/scrollbar.nvim'
+    "" Plugin 'valsorym/dstein64-nvim-scrollview', {'name': 'nvim-scrollview'} " 'dstein64-nvim-scrollview'
 else
     " Not supported in NeoVIM.
     " Scrollbar.
@@ -250,8 +250,25 @@ set numberwidth=5
 " TITLE SETTINGS
 " Custom title style.
 set title
-"set titlestring=VIM:\ %-25.55F titlelen=70
-set titlestring=NEW\ FILE titlelen=70
+set titlestring=EDITOR titlelen=70
+""" set titlestring=VIM:\ %-25.55F titlelen=70
+""" 
+""" " BufEnterSync change titlestring.
+""" function! BufEnterSync()
+"""     let s:is_file_buffer=strlen(expand('%')) > 0 " has title
+"""     let s:is_tagbar_buffer=stridx(expand('%'), '__Tagbar__') == 0
+"""     let s:is_nerdtree_buffer=stridx(expand('%'), 'NERD_tree_') == 0
+""" 
+"""     if !s:is_file_buffer || s:is_tagbar_buffer || s:is_nerdtree_buffer
+"""         let s:title='Vim'
+"""         if has('nvim')
+"""             let s:title='Neovim'    
+"""         endif
+"""         exec 'set titlestring=' . s:title . ' titlelen=79'
+"""     endif
+""" endfunction
+""" autocmd BufEnter * call BufEnterSync()
+""" call BufEnterSync()
 
 " STATUSBAR SETTINGS
 " Show pressed keys in normal mode.
@@ -414,12 +431,15 @@ autocmd BufEnter * :syntax sync fromstart
 "'' GLOBAL KEY MAPPING                                                      ''"
 "'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''"
 " UNDO/REDO
-" USAGE: Ctrl+u and Ctrl+r
-nmap u :For `Undo` and `Redo` use the `C-u` and `C-r` respectively!
-imap <C-u> <Esc>:undo<CR>
-nmap <C-u> :undo<CR>
-imap <C-r> <Esc>:redo<CR>
-nmap <C-r> :redo<CR>
+" USAGE: Ctrl+Alt+u and Ctrl+Alt+r
+imap <C-A-u> <Esc>:undo<CR>
+nmap <C-A-u> :undo<CR>
+imap <C-A-r> <Esc>:redo<CR>
+nmap <C-A-r> :redo<CR>
+
+nmap u :echo 'For `Undo` and `Redo` use the `Ctrl+Alt+u` and `Ctrl+Alt+r` respectively!'<CR>
+nmap <C-u> :echo 'For `Undo` and `Redo` use the `Ctrl+Alt+u` and `Ctrl+Alt+r` respectively!'<CR>
+nmap <C-r> :echo 'For `Undo` and `Redo` use the `Ctrl+Alt+u` and `Ctrl+Alt+r` respectively!'<CR>
 
 " COPY/PASTE
 " USAGE: Ctrl+Insert and Shift+Insert or Ctrl+C and Ctrl+V
@@ -926,7 +946,8 @@ augroup go
     """ " To stop for Ctrl+ Mouse Left Click
     """ let g:go_def_mapping_enabled=0
     """ autocmd FileType go nmap <buffer> <C-LeftMouse> :echom 'Jump to definition: Ctrl+Alt+d'<CR>
-    autocmd FileType go nmap <buffer> <C-LeftMouse> :<C-u>call go#def#Jump("tab", 0)<CR>
+    """ autocmd FileType go nmap <buffer> <C-LeftMouse> :<C-u>call go#def#Jump("tab", 0)<CR>
+    autocmd FileType go nmap <buffer> <C-LeftMouse> <Plug>(go-def-tab)
     autocmd FileType go nmap <buffer> <C-A-j> <Plug>(go-def-tab)
 augroup END
 
@@ -1086,14 +1107,8 @@ let g:move_auto_indent=0
 "'' SCROLLBAR                                                               ''"
 "'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''"
 if has('nvim')
-    "" " DOC:
-    "" "     https://github.com/Xuyuanp/scrollbar.nvim
-    "" augroup ScrollbarInit
-    ""   autocmd!
-    ""   autocmd CursorMoved,VimResized,QuitPre * silent! lua require('scrollbar').show()
-    ""   autocmd WinEnter,FocusGained * silent! lua require('scrollbar').show()
-    ""   autocmd WinLeave,BufLeave,BufWinLeave,FocusLost * silent! lua require('scrollbar').clear()
-    "" augroup end
+    " DOC:
+    "     https://github.com/dstein64/nvim-scrollview
 else
     " DOC:
     "     https://github.com/obcat/vim-sclow
@@ -1105,5 +1120,4 @@ else
     let g:sclow_sbar_text="\<Space>"
     highlight SclowSbar ctermbg=NONE guibg=NONE
 endif
-
 
