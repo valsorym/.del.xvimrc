@@ -664,12 +664,14 @@ endfunction
 
 " NERDTreeSync call the NERDTreeTabsFind method.
 function! NERDTreeSync()
+    """ call timer_stopall()
+
     " The path is not synchronized if the cursor is in the Tagbar or
     " NERDTree buffers.
     let s:is_file_buffer=strlen(expand('%')) > 0 " has title
     let s:is_tagbar_buffer=stridx(expand('%'), '__Tagbar__') == 0
     let s:is_nerdtree_buffer=stridx(expand('%'), 'NERD_tree_') == 0
-
+    
     if &modifiable && NERDTreeIsOpen() && !&diff
                 \ && s:is_file_buffer && !s:is_tagbar_buffer
                 \ && !s:is_nerdtree_buffer
@@ -715,15 +717,24 @@ endfunction
 " - BufEnter when the buffer receives focus;
 " - BufWritePost after saving the buffer.
 augroup autocmdNERDTreeSync
+    autocmd!
+    autocmd BufEnter * :call NERDTreeSync()
+    autocmd BufWritePost * :call NERDTreeSync()
+
+    " TODO:
     " Sometimes, it works twice and file selection in NERDTree 'jumps' randomly.
     " Need to use sync delay.
-    "" autocmd BufEnter * :call NERDTreeSync()
-    "" autocmd BufWritePost * :call NERDTreeSync()
-    autocmd!
-    autocmd BufEnter * :call timer_start(
-                \ 500, {-> execute('call NERDTreeSync()', '')}, {'repeat':1})
-    autocmd BufWritePost * :call timer_start(
-                \ 500, {-> execute('call NERDTreeSync()', '')}, {'repeat':1})
+    "" autocmd!
+    "" autocmd BufEnter * :call timer_start(
+    ""             \ 500, {-> execute('call NERDTreeSync()', '')}, {'repeat':1})
+    "" autocmd BufWritePost * :call timer_start(
+    ""             \ 500, {-> execute('call NERDTreeSync()', '')}, {'repeat':1})
+
+    """ autocmd BufEnter * :call timer_start(
+    """             \ 500, function('NERDTreeSync'), {'repeat':1})
+    """ autocmd BufWritePost * :call timer_start(
+    """             \ 500, function('NERDTreeSync'), {'repeat':1})
+                
 augroup END
 
 " OPEN/CLOSE NERDTREE
