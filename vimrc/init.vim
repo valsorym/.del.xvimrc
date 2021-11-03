@@ -104,6 +104,7 @@ Plugin 'valsorym/vim-matchup', {'name': 'vim-matchup'} " 'andymass/vim-matchup'
 if has('nvim')
     " Not supported in VIM.
     "" " Scrollbar.
+    "" " TODO: Add scroll box.
     "" Plugin 'valsorym/dstein64-nvim-scrollview', {'name': 'nvim-scrollview'} " 'dstein64-nvim-scrollview'
 else
     " Not supported in NeoVIM.
@@ -432,14 +433,14 @@ autocmd BufEnter * :syntax sync fromstart
 "'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''"
 " UNDO/REDO
 " USAGE: Ctrl+Alt+u and Ctrl+Alt+r
+nmap u :echo 'For `Undo` and `Redo` use the `Ctrl+Alt+u` and `Ctrl+Alt+r` respectively!'<CR>
+nmap <C-u> :echo 'For `Undo` and `Redo` use the `Ctrl+Alt+u` and `Ctrl+Alt+r` respectively!'<CR>
+nmap <C-r> :echo 'For `Undo` and `Redo` use the `Ctrl+Alt+u` and `Ctrl+Alt+r` respectively!'<CR>
+
 imap <C-A-u> <Esc>:undo<CR>
 nmap <C-A-u> :undo<CR>
 imap <C-A-r> <Esc>:redo<CR>
 nmap <C-A-r> :redo<CR>
-
-nmap u :echo 'For `Undo` and `Redo` use the `Ctrl+Alt+u` and `Ctrl+Alt+r` respectively!'<CR>
-nmap <C-u> :echo 'For `Undo` and `Redo` use the `Ctrl+Alt+u` and `Ctrl+Alt+r` respectively!'<CR>
-nmap <C-r> :echo 'For `Undo` and `Redo` use the `Ctrl+Alt+u` and `Ctrl+Alt+r` respectively!'<CR>
 
 " COPY/PASTE
 " USAGE: Ctrl+Insert and Shift+Insert or Ctrl+C and Ctrl+V
