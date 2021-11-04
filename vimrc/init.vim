@@ -251,7 +251,8 @@ set numberwidth=5
 " TITLE SETTINGS
 " Custom title style.
 set title
-set titlestring=EDITOR titlelen=70
+let g:titlestring='set titlestring=NEW\ FILE titlelen=70'
+exec g:titlestring
 """ set titlestring=VIM:\ %-25.55F titlelen=70
 """
 """ " BufEnterSync change titlestring.
@@ -662,56 +663,129 @@ function! NERDTreeIsOpen()
   return exists('t:NERDTreeBufName') && (bufwinnr(t:NERDTreeBufName) != -1)
 endfunction
 
-" NERDTreeSync call the NERDTreeTabsFind method.
+" NERDTreeSync synchronizes the selected file with NERDTree.
 function! NERDTreeSync()
-    """ call timer_stopall()
+    " The path isn't synchronized if the cursor is
+    " in the Tagbar or NERDTree buffers.
+    let s:file_path=expand('%')
+    let s:is_tagbar_buffer=stridx(s:file_path, '__Tagbar__') == 0
+    let s:is_nerdtree_buffer=stridx(s:file_path, 'NERD_tree_') == 0
 
-    " The path is not synchronized if the cursor is in the Tagbar or
-    " NERDTree buffers.
-    let s:is_file_buffer=strlen(expand('%')) > 0 " has title
-    let s:is_tagbar_buffer=stridx(expand('%'), '__Tagbar__') == 0
-    let s:is_nerdtree_buffer=stridx(expand('%'), 'NERD_tree_') == 0
-    
+    " Synchronize NERDTree.
     if &modifiable && NERDTreeIsOpen() && !&diff
-                \ && s:is_file_buffer && !s:is_tagbar_buffer
+                \ && strlen(s:file_path) > 0 && !s:is_tagbar_buffer
                 \ && !s:is_nerdtree_buffer
         try
             NERDTreeTabsFind
             wincmd p
-
-            " Update title of the GUI-window.
-            " Add information about current project name.
-            let s:project_path=g:NERDTree.ForCurrentTab().getRoot().path.str()
-            let s:project_name=fnamemodify(s:project_path, ':t')
-            let s:file_name=expand('%:t')
-            let s:file_path=substitute(@%, s:file_name, '', '')
-            let s:file_path_len=strlen(s:file_path)
-            let s:file_path_max_len=16
-            let s:title=toupper(s:project_name) . '\ →\ ' . s:file_name
-
-            " Add path for file if pathe exists.
-            if s:file_path_len > 0 && strpart(s:file_path, 0, 1) != '/'
-                " Shorten the path and replace long prefix with
-                " three dots if path for file too long.
-                if s:file_path_len > s:file_path_max_len + 1
-                    let s:path='...'. strpart(
-                                \ s:file_path,
-                                \ s:file_path_len-s:file_path_max_len,
-                                \ s:file_path_max_len-1)
-                else
-                    let s:path=strpart(s:file_path, 0, s:file_path_len-1)
-                endif
-
-                let s:title=toupper(s:project_name) . '\ →\ ' . s:path
-                            \ . '\ →\ ' . s:file_name
-            endif
-
-            """ call s:Debug('Title:' . s:title . ', File path: ' . s:file_path)
-            exec 'set titlestring=' . s:title . ' titlelen=79'
         catch
         endtry
     endif
+
+    " Update titlestring.
+    " If a buffer with a file is not selected, we need to find
+    " the first buffer with a file and get its name.
+    if s:is_tagbar_buffer || s:is_nerdtree_buffer
+        let s:file_path=""
+        let buflist=tabpagebuflist(v:lnum)
+
+        for i in buflist
+            let s:buf_file_path=fnamemodify(bufname(i), '')
+            let s:is_tagbar_buffer=stridx(s:buf_file_path, '__Tagbar__') == 0
+            let s:is_nerdtree_buffer=stridx(s:buf_file_path, 'NERD_tree_') == 0
+
+            if bufexists(i) && !s:is_tagbar_buffer 
+                        \ && !s:is_nerdtree_buffer 
+                        \ && strlen(s:buf_file_path) > 0
+                let s:file_path = s:buf_file_path
+                break
+            endif
+        endfor
+    endif
+
+    " Set new value in titlestring.
+    if strlen(s:file_path) > 0
+        " Update title of the GUI-window.
+        " Add information about current project name.
+        let s:project_path=g:NERDTree.ForCurrentTab().getRoot().path.str()
+        let s:project_name=fnamemodify(s:project_path, ':t')
+        let s:file_name=fnamemodify(s:file_path, ':t')
+        let s:file_path=substitute(s:file_path, s:file_name, '', '')
+        let s:file_path_len=strlen(s:file_path)
+        let s:file_path_max_len=16
+        let s:title=toupper(s:project_name) . '\ →\ ' . s:file_name
+
+        " Add path for file if pathe exists.
+        if s:file_path_len > 0 && strpart(s:file_path, 0, 1) != '/'
+            " Shorten the path and replace long prefix with
+            " three dots if path for file too long.
+            if s:file_path_len > s:file_path_max_len + 1
+                let s:path='...'. strpart(
+                            \ s:file_path,
+                            \ s:file_path_len-s:file_path_max_len,
+                            \ s:file_path_max_len-1)
+            else
+                let s:path=strpart(s:file_path, 0, s:file_path_len-1)
+            endif
+
+            " Add path in the titlestring line.
+            let s:title=toupper(s:project_name) . '\ →\ ' . s:path
+                        \ . '\ →\ ' . s:file_name
+        endif
+
+        exec 'set titlestring=' . s:title . ' titlelen=79'
+    else
+        " Set defualt titlestring.
+        exec g:titlestring
+    endif
 endfunction
+
+""" function! NERDTreeSync()
+"""     " The path is not synchronized if the cursor is in the Tagbar or
+"""     " NERDTree buffers.
+"""     let s:is_file_buffer=strlen(expand('%')) > 0 " has title
+"""     let s:is_tagbar_buffer=stridx(expand('%'), '__Tagbar__') == 0
+"""     let s:is_nerdtree_buffer=stridx(expand('%'), 'NERD_tree_') == 0
+"""     
+"""     if &modifiable && NERDTreeIsOpen() && !&diff
+"""                 \ && s:is_file_buffer && !s:is_tagbar_buffer
+"""                 \ && !s:is_nerdtree_buffer
+"""         try
+"""             NERDTreeTabsFind
+"""             wincmd p
+""" 
+"""             " Update title of the GUI-window.
+"""             " Add information about current project name.
+"""             let s:project_path=g:NERDTree.ForCurrentTab().getRoot().path.str()
+"""             let s:project_name=fnamemodify(s:project_path, ':t')
+"""             let s:file_name=expand('%:t')
+"""             let s:file_path=substitute(@%, s:file_name, '', '')
+"""             let s:file_path_len=strlen(s:file_path)
+"""             let s:file_path_max_len=16
+"""             let s:title=toupper(s:project_name) . '\ →\ ' . s:file_name
+""" 
+"""             " Add path for file if pathe exists.
+"""             if s:file_path_len > 0 && strpart(s:file_path, 0, 1) != '/'
+"""                 " Shorten the path and replace long prefix with
+"""                 " three dots if path for file too long.
+"""                 if s:file_path_len > s:file_path_max_len + 1
+"""                     let s:path='...'. strpart(
+"""                                 \ s:file_path,
+"""                                 \ s:file_path_len-s:file_path_max_len,
+"""                                 \ s:file_path_max_len-1)
+"""                 else
+"""                     let s:path=strpart(s:file_path, 0, s:file_path_len-1)
+"""                 endif
+""" 
+"""                 let s:title=toupper(s:project_name) . '\ →\ ' . s:path
+"""                             \ . '\ →\ ' . s:file_name
+"""             endif
+""" 
+"""             exec 'set titlestring=' . s:title . ' titlelen=79'
+"""         catch
+"""         endtry
+"""     endif
+""" endfunction
 
 " Auto sync.
 " - BufEnter when the buffer receives focus;
@@ -720,25 +794,10 @@ augroup autocmdNERDTreeSync
     autocmd!
     autocmd BufEnter * :call NERDTreeSync()
     autocmd BufWritePost * :call NERDTreeSync()
-
-    " TODO:
-    " Sometimes, it works twice and file selection in NERDTree 'jumps' randomly.
-    " Need to use sync delay.
-    "" autocmd!
-    "" autocmd BufEnter * :call timer_start(
-    ""             \ 500, {-> execute('call NERDTreeSync()', '')}, {'repeat':1})
-    "" autocmd BufWritePost * :call timer_start(
-    ""             \ 500, {-> execute('call NERDTreeSync()', '')}, {'repeat':1})
-
-    """ autocmd BufEnter * :call timer_start(
-    """             \ 500, function('NERDTreeSync'), {'repeat':1})
-    """ autocmd BufWritePost * :call timer_start(
-    """             \ 500, function('NERDTreeSync'), {'repeat':1})
-                
 augroup END
 
-" OPEN/CLOSE NERDTREE
-" NERDTreeSmartOpen smart open NERDTree.
+" Toggle NERDTree.
+" NERDTreeSmartOpen smart open/close NERDTree.
 function! NERDTreeSmartOpen()
     NERDTreeTabsToggle
     "if NERDTreeIsOpen()
@@ -922,7 +981,8 @@ let g:go_fmt_options={
 " Info mode.
 " Automatic display of information about the object.
 let g:go_info_mode = 'guru'
-let g:go_auto_type_info = 1 " set 1 to activate auto detect.
+let g:go_auto_type_info = 0 " set 1 to activate auto detect,
+                            " but 1 doesn't work well with NERDTreeSync
 
 " Go doc.
 let g:go_doc_keywordprg_enabled=1
@@ -988,21 +1048,21 @@ function! ToggleTagbar()
     let g:tagbar_autofocus=0
 
     " Don't toggle tagbar if cursor is in tagbar or nerdtree buffers.
-    let s:is_tagbar_buffer=stridx(expand('%'), '__Tagbar__')
-    let s:is_nerdtree_buffer=stridx(expand('%'), 'NERD_tree_')
-    let b:initial_buffer=1
+    let s:is_tagbar_buffer=stridx(expand('%'), '__Tagbar__') == 0
+    let s:is_nerdtree_buffer=stridx(expand('%'), 'NERD_tree_') == 0
+    let s:initial_buffer=1
 
-    if s:is_tagbar_buffer >=0 || s:is_nerdtree_buffer >=0
-        echomsg 'You cannot run TagBar inside TagBar or NERDTree buffers!'
+    if s:is_tagbar_buffer || s:is_nerdtree_buffer
+        echomsg 'You can`t open TagBar inside TagBar or NERDTree buffers!'
     else
         TagbarToggle
     endif
 
     " Go back to initial buffer.
-    while !exists('b:initial_buffer')
+    while !exists('s:initial_buffer')
         wincmd w
     endwhile
-    unlet b:initial_buffer
+    unlet s:initial_buffer
 endfunction
 
 nmap <F10> :call ToggleTagbar()<CR>
